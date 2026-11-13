@@ -165,7 +165,7 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
 <header>
   <h1>Mi nómina de profesor, euro a euro</h1>
   <p class="entrada">Soy profesor de Secundaria interino en un instituto público de la Comunidad de Madrid y doy clase en Formación Profesional. Mi sueldo se paga con dinero público, así que aquí está entero, con cada concepto explicado.</p>
-  <p class="nota">Datos de mis nóminas de septiembre y octubre de 2026, que son idénticas. No hay datos personales ni mi retención de IRPF.</p>
+  <p class="nota">Datos de mis nóminas de septiembre y octubre de 2026, que son idénticas. No hay datos personales ni mi retención de IRPF. Cifras contrastadas con la normativa vigente el 13 de noviembre de 2026.</p>
 </header>
 
 <section id="nomina" aria-labelledby="t-nomina">
@@ -198,16 +198,16 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
     </div>
     <div class="resultado"><span>Lo que cuesta mi puesto al mes</span><span class="num">3.972,99&nbsp;€</span></div>
   </div>
-  <p class="nota">A estas doce nóminas se suman dos pagas extra, en junio y diciembre, de unos 2.380&nbsp;€ cada una.</p>
+  <p class="nota">A estas doce nóminas se suman dos pagas extra, en junio y diciembre, de 2.383,60&nbsp;€ cada una. Con ellas, el sueldo bruto de un año completo es de 39.744,68&nbsp;€.</p>
 </section>
 
 <section id="reparto" aria-labelledby="t-reparto">
   <h2 id="t-reparto">A dónde va cada euro</h2>
-  <p>En un curso completo, de septiembre a agosto, mi puesto cuesta unos 52.440&nbsp;€. Para repartirlos hace falta el IRPF, y el mío no lo publico porque depende de mi situación personal. Uso el de un caso tipo, el mismo que emplea el Consejo General de Economistas en sus comparativas, que es una persona soltera, sin hijos y menor de 65 años. Con este sueldo pagaría en Madrid unos 7.130&nbsp;€ al año.</p>
+  <p>En un año completo, con las cuantías de 2026, mi puesto cuesta 52.443&nbsp;€. Son los 39.745&nbsp;€ de sueldo bruto más 12.698&nbsp;€ de cotizaciones de la Administración. Para repartirlos hace falta el IRPF, y el mío no lo publico porque depende de mi situación personal. Uso el de un caso tipo, el mismo que emplea el Consejo General de Economistas en sus comparativas, que es una persona soltera, sin hijos y menor de 65 años. Con este sueldo pagaría en Madrid 7.131&nbsp;€ al año.</p>
 
   <figure class="figura" id="fig-reparto">
     <h3>Reparto del coste anual del puesto</h3>
-    <p class="sub">52.440&nbsp;€ al año, con el IRPF del caso tipo en Madrid</p>
+    <p class="sub">52.443&nbsp;€ al año, con el IRPF del caso tipo en Madrid</p>
     <div class="grafico">
       <div class="segmentada" role="group" aria-label="Reparto del coste anual del puesto"></div>
       <ul class="leyenda"></ul>
@@ -219,7 +219,7 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
     </div>
   </figure>
 
-  <p>Con ese IRPF, de cada 100&nbsp;€ que cuesta el puesto llegarían 57 a mi cuenta. Los otros 43 son IRPF y cotizaciones a la Seguridad Social.</p>
+  <p>Con ese IRPF, de cada 100&nbsp;€ que cuesta el puesto llegarían 57 a mi cuenta. Los otros 43 son IRPF y cotizaciones a la Seguridad Social, unos 22.400&nbsp;€ al año entre mi parte y la de la Administración.</p>
   <p>Con esas cotizaciones se pagan las pensiones, el desempleo y las bajas de hoy, y a cambio genero el derecho a las mías. Y como soy empleado público, todo el coste se paga con dinero público, que sale sobre todo de los impuestos, también de los míos.</p>
 </section>
 
@@ -233,7 +233,7 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
     <output for="sueldo" id="sueldo-out" class="num"></output>
   </div>
   <div class="atajos" role="group" aria-label="Sueldos de referencia">
-    <button type="button" data-v="39741.48">Este sueldo</button>
+    <button type="button" data-v="39744.68">Este sueldo</button>
     <button type="button" data-v="30000">30.000&nbsp;€</button>
     <button type="button" data-v="45000">45.000&nbsp;€</button>
     <button type="button" data-v="55000">55.000&nbsp;€</button>
@@ -251,12 +251,14 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
     </div>
   </figure>
 
-  <p>El País Vasco y Navarra tienen un sistema propio y no entran en este cálculo. Según el Consejo General de Economistas, con 45.000&nbsp;€ en el País Vasco se pagan 8.626&nbsp;€, menos que en Madrid (8.881&nbsp;€), y en Navarra 9.346&nbsp;€. Con 30.000&nbsp;€, tanto el País Vasco (4.495&nbsp;€) como Navarra (4.583&nbsp;€) quedan por debajo de Madrid (4.598&nbsp;€).</p>
+  <p id="foral"></p>
+  <p>Navarra tiene también un sistema propio. Según el Consejo General de Economistas, allí se pagan 4.583&nbsp;€ con un sueldo de 30.000&nbsp;€, algo menos que en Madrid (4.598&nbsp;€), y 9.346&nbsp;€ con 45.000&nbsp;€, más que en Madrid (8.881&nbsp;€).</p>
+  <p class="nota">Andalucía, Galicia y Canarias tramitan con sus presupuestos de 2027 rebajas que, según sus proyectos, se aplicarían ya a las rentas de 2026. No están aprobadas y por eso el gráfico no las incluye. Con las de Andalucía y Galicia, que bajan 0,25 puntos los cuatro primeros tramos, este sueldo pagaría allí unos 73&nbsp;€ menos al año. Madrid prevé otra rebaja de medio punto para 2027, también pendiente de aprobación.</p>
 </section>
 
 <section id="bruto" aria-labelledby="t-bruto">
   <h2 id="t-bruto">Y el sueldo también cambia</h2>
-  <p>El IRPF es solo una parte de la comparación. El sueldo bruto de un profesor de Secundaria tampoco es igual en todas partes, porque cada comunidad fija su complemento específico. Estos son los datos que publicó UGT para 2025, antes de la última subida, para un profesor sin antigüedad.</p>
+  <p>El IRPF es solo una parte de la comparación. El sueldo bruto de un profesor de Secundaria tampoco es igual en todas partes, porque cada comunidad fija su complemento específico. Estos son los datos que publicó UGT para 2025, para un profesor sin antigüedad. Son anteriores a las subidas del 2,5&nbsp;% y del 1,5&nbsp;% que el Estado aprobó en diciembre de 2025, y no he encontrado una comparativa de 2026 que pueda contrastar con los boletines oficiales. En Madrid, ese mismo sueldo es hoy de 2.914,79&nbsp;€.</p>
 
   <figure class="figura" id="fig-bruto">
     <h3>Sueldo bruto mensual de un profesor de Secundaria sin antigüedad</h3>
@@ -270,41 +272,33 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
   </figure>
 
   <p>Madrid queda en la parte media baja de la tabla, con trece filas por encima y seis por debajo. Dos ejemplos para comparar las dos cosas a la vez. En Andalucía el sueldo de 2025 era 80&nbsp;€ al mes más alto que en Madrid, y el IRPF de un sueldo como el mío es unos 465&nbsp;€ más alto al año. En Cataluña el sueldo era 75&nbsp;€ al mes más bajo, y el IRPF es unos 717&nbsp;€ más alto.</p>
-</section>
-
-<section id="mas" aria-labelledby="t-mas">
-  <h2 id="t-mas">Más allá del IRPF</h2>
-  <p>Las comunidades también deciden sobre otros impuestos. Estos son tres ejemplos, los dos primeros del mismo informe de los economistas.</p>
-  <ul class="sobrio">
-    <li>Quien compra un inmueble de segunda mano paga el impuesto de transmisiones. En el ejemplo del informe, un inmueble de 150.000&nbsp;€ que no es vivienda, se pagan 9.000&nbsp;€ en Madrid y en Navarra, que tienen el tipo general más bajo (6&nbsp;%). En Andalucía son 10.500&nbsp;€, en Galicia y Asturias 12.000&nbsp;€ y en Cataluña 15.000&nbsp;€. Con una vivienda las cuentas cambian. En el País Vasco se paga un 4&nbsp;%, y hay tipos reducidos para la vivienda habitual de jóvenes, familias numerosas o personas con discapacidad.</li>
-    <li>Una persona soltera de 30 años que hereda de su padre 800.000&nbsp;€ paga 1.586&nbsp;€ en Madrid. En Andalucía, Baleares, Cantabria y Galicia no paga nada, y en Asturias paga 103.135&nbsp;€.</li>
-    <li>Las comunidades pueden crear además impuestos propios, como los que gravan las estancias turísticas en Baleares, Cataluña y Galicia. En la relación de 2025 del Ministerio de Hacienda, Madrid es la única de régimen común que no tiene ninguno, después de suprimir los suyos en 2022.</li>
-  </ul>
+  <p>El País Vasco y Navarra tienen además un sistema de financiación distinto al de las otras quince comunidades. Recaudan sus propios impuestos y pagan al Estado una cantidad por las competencias que este conserva, el cupo vasco y la aportación navarra, así que sus presupuestos no se rigen por las mismas reglas.</p>
 </section>
 
 <section id="limites" aria-labelledby="t-limites">
   <h2 id="t-limites">Lo que estos datos no dicen</h2>
   <ul class="sobrio">
-    <li>El IRPF real de cada persona depende de su situación. El caso tipo sirve para comparar comunidades, no para saber lo que paga nadie en concreto.</li>
+    <li>El IRPF real de cada persona depende de su situación y de las deducciones de su comunidad, que este cálculo no incluye. El caso tipo sirve para comparar comunidades, no para saber lo que paga nadie en concreto.</li>
     <li>El coste de la vida no está aquí. La vivienda, por ejemplo, cuesta muy distinto en Madrid que en otras comunidades.</li>
     <li>Menos impuestos autonómicos son también menos ingresos para la comunidad. Si compensa o no es una cuestión de opinión, y cada uno tendrá la suya.</li>
-    <li>Con los años se cobran trienios y sexenios, que en esta nómina no aparecen.</li>
+    <li>Con los años se cobran trienios, de 53,39&nbsp;€ al mes cada uno, y sexenios. En esta nómina no hay ninguno.</li>
   </ul>
 </section>
 
 <section id="fuentes" aria-labelledby="t-fuentes">
   <h2 id="t-fuentes">Fuentes y método</h2>
   <ul class="sobrio">
-    <li>Mi nómina de septiembre de 2026. No la publico porque contiene datos personales.</li>
-    <li><a href="https://multimedia2.coev.com/pdfs/panorama-fiscalidad2026.pdf">Panorama de la fiscalidad autonómica y foral 2026</a>, del Consejo General de Economistas (REAF). De ahí salen el caso tipo, las cifras del País Vasco y Navarra y los ejemplos de transmisiones y herencias.</li>
-    <li><a href="https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico.html">Manual práctico de Renta 2025</a>, de la Agencia Tributaria, para las escalas de cada comunidad.</li>
-    <li><a href="https://www.hacienda.gob.es/SGFAL/FinanciacionTerritorial/Autonomica/Capitulo-III-Tributacion-Autonomica-2025.pdf">Tributación autonómica 2025</a>, del Ministerio de Hacienda, para los impuestos propios, y <a href="https://www.boe.es/eli/es-md/l/2021/12/22/3">Ley 3/2021</a> de la Comunidad de Madrid, que suprimió los suyos.</li>
-    <li><a href="https://guiafiscal.es/patrimonio/itp/pais-vasco/">Tipos del impuesto de transmisiones en el País Vasco</a>, de guiafiscal.es, para el 4&nbsp;% de las viviendas.</li>
-    <li><a href="https://ugt-sp.es/wp-content/uploads/boletin-retribuciones-docentes-2025-web.pdf">Retribuciones docentes en la enseñanza pública 2025</a>, de UGT, para el sueldo por comunidades.</li>
-    <li><a href="https://papelea.com/es/leyes/estatuto-basico-del-empleado-publico-ebep/titulo-iii_capitulo-iii">Estatuto Básico del Empleado Público</a>, artículos 22 a 25, y <a href="https://www.asepeyo.es/wp-content/uploads/Bases-tipos-cotizacion-2026-ES.pdf">bases y tipos de cotización de 2026</a>.</li>
+    <li><strong>Sueldo.</strong> Mi nómina de septiembre de 2026, que no publico porque contiene datos personales. Sus cuantías coinciden con la <a href="https://www.bocm.es/boletin/CM_Orden_BOCM/2026/02/09/BOCM-20260209-6.PDF">Orden de 3 de febrero de 2026</a> de la Comunidad de Madrid sobre nóminas (BOCM del 9 de febrero) y con las tablas de <a href="https://documentos.anpemadrid.es/retribuciones_26.pdf">ANPE Madrid</a> y de <a href="https://stemstes.org/wp-content/uploads/2026/02/RETRIBUCIONES-BASICAS-2026.pdf">STEM</a>. Las subidas de 2025 y 2026 están en el <a href="https://www.boe.es/diario_boe/txt.php?id=BOE-A-2025-24445">Real Decreto-ley 14/2025</a>, y la estructura del sueldo en los artículos 22 a 25 del <a href="https://papelea.com/es/leyes/estatuto-basico-del-empleado-publico-ebep/titulo-iii_capitulo-iii">Estatuto Básico del Empleado Público</a>.</li>
+    <li><strong>Cotizaciones.</strong> <a href="https://www.boe.es/eli/es/o/2026/03/30/pjc297">Orden PJC/297/2026</a>, que fija los tipos y las bases de cotización a la Seguridad Social de 2026.</li>
+    <li><strong>IRPF.</strong> Escalas y mínimos del <a href="https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico.html">Manual práctico de Renta 2025</a> de la Agencia Tributaria, actualizados con el informe <a href="https://www.hacienda.gob.es/sgfal/financiacionterritorial/autonomica/capitulo-i-tributacion-autonomica-2026.pdf">Tributación autonómica. Medidas 2026</a> del Ministerio de Hacienda y con dos leyes posteriores que rebajan la escala de 2026, la <a href="https://www.boe.es/eli/es-vc/l/2026/07/31/5">Ley 5/2026</a> de la Comunitat Valenciana y la <a href="https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-17839">Ley 2/2026</a> de Extremadura.</li>
+    <li><strong>Contraste del IRPF.</strong> <a href="https://multimedia2.coev.com/pdfs/panorama-fiscalidad2026.pdf">Panorama de la fiscalidad autonómica y foral 2026</a>, del Consejo General de Economistas, de donde salen el caso tipo y las cifras de Navarra, y la <a href="https://visorfiscal.es/blog/cuanto-irpf-comunidad-autonoma-30000-euros-2026">comparativa de visorfiscal</a> para 30.000&nbsp;€.</li>
+    <li><strong>País Vasco.</strong> Tarifa y minoración de cuota de 2026 según la <a href="https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01877">Diputación Foral de Bizkaia</a>, y bonificación del trabajo según la <a href="https://www.bbva.es/content/dam/public-web/bbvaes/documents/productos/banca-privada/Nota-Novedades-Fiscales-Bizkaia-mayo-2025.pdf">nota de BBVA sobre la reforma fiscal de 2025</a>.</li>
+    <li><strong>Sueldo por comunidades.</strong> <a href="https://ugt-sp.es/wp-content/uploads/boletin-retribuciones-docentes-2025-web.pdf">Retribuciones docentes en la enseñanza pública 2025</a>, de UGT.</li>
+    <li><strong>Rebajas en tramitación.</strong> <a href="https://www.xunta.gal/documents/35297/43087/161026+REFERENCIA.pdf?version=1.0">Referencia del Consello de la Xunta</a> del 16 de octubre de 2026, <a href="https://www.juntadeandalucia.es/presidencia/portavoz/economiayempleo/220050/JuntadeAndalucia/ConsejodeGobierno">nota de la Junta de Andalucía</a> del 30 de octubre, y las informaciones de <a href="https://www.atlanticohoy.com/economia/canarias-proyecta-nuevas-rebajas-impuestos-pese-advertencia-airef-sobre-sus-cuentas_1569743_102.html">Atlántico Hoy</a> sobre Canarias, de <a href="https://www.vozpopuli.com/espana/madrid/ayuso-cumple-su-promesa-y-aprueba-una-nueva-rebaja-fiscal-bajara-medio-punto-el-irpf-a-los-madrilenos-en-2027.html">Vozpópuli</a> sobre Madrid y del <a href="https://guiafiscal.es/actualidad/rebajas-irpf-2027-comunidades/">seguimiento de guiafiscal.es</a>.</li>
   </ul>
-  <p class="nota">El IRPF se calcula restando al sueldo bruto las cotizaciones del trabajador (6,5&nbsp;%) y 2.000&nbsp;€ de gastos, aplicando la escala estatal y la autonómica y descontando el mínimo personal. El resultado coincide al céntimo con el informe de los economistas para 30.000, 45.000, 70.000 y 110.000&nbsp;€. La Comunitat Valenciana aprobó después una rebaja para 2026 (<a href="https://www.garrigues.com/es_ES/noticia/comunidad-valenciana-repasamos-principales-novedades-tributos-autonomicos-2026-2027">Ley 5/2026</a>), que ya está incluida. Si otra comunidad ha cambiado su escala desde entonces, su cifra puede variar unos euros.</p>
-  <p class="nota">El curso completo son doce nóminas y dos pagas extra, estimadas con la parte proporcional que figura en la nómina. Las cuantías cambiarán en 2027.</p>
+  <p class="nota">El IRPF se calcula restando al sueldo bruto las cotizaciones del trabajador (6,5&nbsp;%) y 2.000&nbsp;€ de gastos, aplicando la escala estatal y la autonómica y descontando el mínimo personal. En las trece comunidades que no han cambiado su escala durante 2026, el resultado coincide al céntimo con el informe de los economistas para 30.000 y 45.000&nbsp;€ y con la comparativa de visorfiscal para 30.000&nbsp;€.</p>
+  <p class="nota">En el País Vasco no hay mínimo personal ni gastos de 2.000&nbsp;€. Se resta del sueldo una bonificación del trabajo, que es de 3.000&nbsp;€ a partir de 23.000&nbsp;€, y de la cuota una minoración de 1.615&nbsp;€. Con esas reglas se obtienen las mismas cifras que da el informe de los economistas para 30.000 y 45.000&nbsp;€. Las de Navarra son las del informe y no las he recalculado. Una <a href="https://www.fiscal-impuestos.com/navarra-ley-foral-17-2025-modificaciones-tributarias">ley foral de diciembre de 2025</a> mejoró allí las deducciones de las rentas de hasta 32.000&nbsp;€, así que su cifra para 30.000&nbsp;€ podría ser algo menor.</p>
+  <p class="nota">El año completo son doce nóminas y dos pagas extra. Cada paga extra suma el sueldo reducido que fija la norma para esas pagas (856,05&nbsp;€), el complemento de destino y el complemento específico. Las cuantías cambiarán en 2027.</p>
 </section>
 
 <section id="porque" aria-labelledby="t-porque">
@@ -388,8 +382,8 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
   // ---------- la nómina ----------
   var LINEAS = {
     cobro: [
-      ['Sueldo', '', 1387.24, 'La parte básica. Depende del grupo de clasificación, y el profesorado de Secundaria está en el A1, el más alto de la función pública. La fija cada año la Ley de Presupuestos Generales del Estado y es la misma para cualquier funcionario A1 de España.'],
-      ['Complemento de destino', '', 729.14, 'Depende del nivel del puesto, que en Secundaria es el 24. La cuantía de cada nivel se fija en las leyes de presupuestos.'],
+      ['Sueldo', '', 1387.24, 'La parte básica. Depende del grupo de clasificación, y el profesorado de Secundaria está en el A1, el más alto de la función pública. La fija el Estado cada año y es la misma para cualquier funcionario A1 de España. La de 2026 incluye las subidas del 2,5 % y del 1,5 % aprobadas en diciembre de 2025.'],
+      ['Complemento de destino', '', 729.14, 'Depende del nivel del puesto, que en Secundaria es el 24. Su cuantía la publica cada año la Comunidad de Madrid en su orden de nóminas.'],
       ['Complemento específico general docente', '', 798.41, 'Paga las características propias del puesto docente. Lo fija cada comunidad autónoma, y por eso es la parte que más cambia de una región a otra.']
     ],
     descuento: [
@@ -431,10 +425,10 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
 
   // ---------- reparto del coste ----------
   var PARTES = [
-    ['Sueldo neto', 30028, 's1'],
-    ['IRPF del caso tipo', 7130, 's2'],
-    ['Seguridad Social, mi parte', 2583, 's3'],
-    ['Seguridad Social, parte de la Administración', 12698, 's4']
+    ['Sueldo neto', 30030.25, 's1'],
+    ['IRPF del caso tipo', 7130.95, 's2'],
+    ['Seguridad Social, mi parte', 2583.48, 's3'],
+    ['Seguridad Social, parte de la Administración', 12698.40, 's4']
   ];
   var totalCoste = PARTES.reduce(function (a, p) { return a + p[1]; }, 0);
   (function () {
@@ -505,7 +499,7 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
     { n: 'Castilla y León', min: 5550, e: [[12450, 9], [20200, 12], [35200, 14], [53407.2, 18.5], [INF, 21.5]] },
     { n: 'Castilla-La Mancha', min: 5550, e: [[12450, 9.5], [20200, 12], [35200, 15], [60000, 18.5], [INF, 22.5]] },
     { n: 'Cataluña', min: 5550, e: [[12500, 9.5], [22000, 12.5], [33000, 16], [53000, 19], [90000, 21.5], [120000, 23.5], [175000, 24.5], [INF, 25.5]] },
-    { n: 'Extremadura', min: 5550, e: [[12450, 8], [20200, 10], [24200, 16], [35200, 17.5], [60000, 21], [80200, 23.5], [99200, 24], [120200, 24.5], [INF, 25]] },
+    { n: 'Extremadura', min: 5550, e: [[12450, 7.75], [20200, 9.75], [24200, 16], [35200, 17.5], [60000, 21], [80200, 23.5], [99200, 24], [120200, 24.5], [INF, 25]] },
     { n: 'Galicia', min: 5789, e: [[12985.35, 9], [21068.6, 11.65], [35200, 14.9], [60000, 18.4], [INF, 22.5]] },
     { n: 'Madrid', min: 5956.65, e: [[13362.22, 8.5], [19004.63, 10.7], [35425.68, 12.8], [57320.4, 17.4], [INF, 20.5]] },
     { n: 'Región de Murcia', min: 5550, e: [[12450, 9.5], [20200, 11.2], [34000, 13.3], [60000, 17.9], [INF, 22.5]] },
@@ -525,14 +519,21 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
     var base = bruto * (1 - 0.065) - 2000;
     return cuota(base, ESTATAL) - cuota(MIN_ESTATAL, ESTATAL) + cuota(base, ca.e) - cuota(ca.min, ca.e);
   }
+  // País Vasco (régimen foral, 2026): tarifa, bonificación del trabajo y minoración de cuota
+  var PAIS_VASCO = [[18080, 23], [36160, 28], [54240, 35], [77450, 40], [107260, 45], [142960, 46], [208390, 47], [INF, 49]];
+  function irpfPaisVasco(bruto) {
+    var dif = bruto * (1 - 0.065);
+    var bonif = dif <= 14800 ? 8000 : (dif <= 23000 ? 8000 - 0.6098 * (dif - 14800) : 3000);
+    return Math.max(0, cuota(dif - bonif, PAIS_VASCO) - 1615);
+  }
 
   var ORD = ['', 'la más baja', 'la segunda más baja', 'la tercera más baja', 'la cuarta más baja', 'la quinta más baja'];
   (function () {
     var fig = document.getElementById('fig-irpf');
     var rango = document.getElementById('sueldo'), out = document.getElementById('sueldo-out');
     var resumen = document.getElementById('irpf-resumen'), sub = document.getElementById('irpf-sub');
-    var atajos = document.querySelectorAll('.atajos button');
-    var bruto = 39741.48, filasActuales = [];
+    var atajos = document.querySelectorAll('.atajos button'), foral = document.getElementById('foral');
+    var bruto = 39744.68, filasActuales = [];
     function calcular() {
       var filas = CCAA.map(function (c) { return { n: c.n, v: irpf(bruto, c), destacada: c.n === 'Madrid' }; });
       filas.sort(function (a, b) { return a.v - b.v; });
@@ -551,6 +552,8 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
       if (pos > 1) t += ' La más baja es ' + filas[0].n + ', con ' + fmt(filas[0].v) + '\u00a0€.';
       t += ' La media de las otras catorce es de ' + fmt(media) + '\u00a0€, ' + fmt(Math.abs(media - mad.v)) + '\u00a0€ ' + (media >= mad.v ? 'más' : 'menos') + ' al año. La más alta es ' + maxF.n + ', con ' + fmt(maxF.v) + '\u00a0€, ' + fmt(maxF.v - mad.v) + '\u00a0€ más.';
       resumen.textContent = t;
+      var pv = irpfPaisVasco(bruto), difPv = pv - mad.v;
+      foral.textContent = 'El País Vasco y Navarra tienen un régimen fiscal propio, el foral, y por eso no aparecen en el gráfico. Con ese mismo sueldo, el caso tipo pagaría en el País Vasco ' + fmt(pv) + ' € de IRPF, ' + fmt(Math.abs(difPv)) + ' € ' + (difPv < 0 ? 'menos' : 'más') + ' que en Madrid.';
       pintarBarras(fig, filas, { unidad: ' al año' });
       atajos.forEach(function (b) { b.setAttribute('aria-pressed', String(Math.abs(parseFloat(b.dataset.v) - bruto) < 1)); });
       refrescar();
