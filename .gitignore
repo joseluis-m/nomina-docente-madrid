@@ -1,0 +1,4 @@
+# La nómina original contiene datos personales y no se sube nunca
+*.pdf
+nomina*.*
+Nomina*.*
