@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mi nómina de profesor, euro a euro</title>
 <meta name="description" content="La nómina de un profesor de Secundaria interino en Madrid, concepto a concepto, con lo que cuesta el puesto y lo que se paga en impuestos y cotizaciones.">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Mi nómina de profesor, euro a euro">
+<meta property="og:description" content="Lo que cobra un profesor de Secundaria interino en Madrid, lo que cuesta su puesto y a dónde va cada euro.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#edf1f0">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f1314">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231c5cab'/%3E%3Ctext x='16' y='23.5' font-size='21' font-family='Arial,sans-serif' font-weight='700' text-anchor='middle' fill='%23fff'%3E%E2%82%AC%3C/text%3E%3C/svg%3E">
 <style>
 :root {
   color-scheme: light;
@@ -22,9 +29,11 @@
   --s2: #eb6834;
   --s3: #1baf7a;
   --s4: #eda100;
-  --on-s4: #0b0b0b;
   --tip-bg: #16212a;
   --tip-ink: #fcfcfb;
+  --on-bg: #1c5cab;
+  --on-ink: #ffffff;
+  --chev: .7rem;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -43,9 +52,10 @@
     --s2: #d95926;
     --s3: #199e70;
     --s4: #c98500;
-    --on-s4: #ffffff;
     --tip-bg: #f0efec;
     --tip-ink: #16212a;
+    --on-bg: #86b6ef;
+    --on-ink: #0f1314;
   }
 }
 * { box-sizing: border-box; }
@@ -59,40 +69,65 @@ body {
   line-height: 1.55;
 }
 main { max-width: 54rem; margin: 0 auto; padding: 0 1rem 5rem; }
-header { padding: 4.5rem 0 1.5rem; }
+header { padding: 2.6rem 0 0; }
 h1 { font-size: clamp(2rem, 6vw, 3.1rem); line-height: 1.08; letter-spacing: -0.02em; font-weight: 700; margin: 0 0 1.1rem; max-width: 22ch; }
 h2 { font-size: 1.55rem; line-height: 1.2; letter-spacing: -0.01em; margin: 0 0 .7rem; }
 h3 { font-size: 1rem; margin: 0; }
 p { margin: 0 0 1rem; max-width: 68ch; }
-.entrada { font-size: 1.2rem; color: var(--ink-2); }
+.entrada { font-size: 1.2rem; color: var(--ink-2); margin-bottom: 0; }
 a { color: var(--accent-ink); text-underline-offset: 2px; }
-section { padding: 3.25rem 0 0; }
+section { padding: 3.25rem 0 0; scroll-margin-top: .25rem; }
+header + noscript + section { padding-top: 2.2rem; }
 .nota { font-size: .9rem; color: var(--ink-2); }
 .num { font-variant-numeric: tabular-nums; white-space: nowrap; }
 button { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
+/* Índice */
+.indice { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--page) 88%, transparent); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.indice-in { position: relative; max-width: 54rem; margin: 0 auto; padding: 0 1rem; display: flex; gap: 1.4rem; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+.indice-in::-webkit-scrollbar { display: none; }
+.indice a { padding: .6rem 0 .5rem; font-size: .9rem; color: var(--ink-2); text-decoration: none; border-bottom: 2px solid transparent; }
+.indice a:hover { color: var(--ink); }
+.indice a[aria-current] { color: var(--ink); border-bottom-color: var(--accent); }
+@media (max-width: 48rem) {
+  .indice-in { padding-right: 2.5rem; -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent); }
+}
+
+/* Selector de periodo */
+.periodo { display: inline-flex; flex: none; padding: 2px; border: 1px solid var(--line); border-radius: 999px; background: var(--band); }
+.periodo button { border: 0; background: none; border-radius: 999px; padding: .3rem .95rem; font-size: .92rem; font-weight: 600; color: var(--ink-2); cursor: pointer; }
+.periodo button:hover { color: var(--ink); }
+.periodo button[aria-pressed="true"] { background: var(--on-bg); color: var(--on-ink); }
+
 /* La nómina */
-.nomina { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; margin-top: 1.4rem; overflow: hidden; }
+.barra-nomina { display: flex; flex-wrap: wrap; gap: .6rem 1rem; align-items: center; justify-content: space-between; margin-top: 1.2rem; }
+.nomina { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; margin-top: .9rem; overflow: hidden; }
 .nomina-cab { display: flex; flex-wrap: wrap; gap: .25rem 1.5rem; justify-content: space-between; padding: .9rem 1.1rem; border-bottom: 1px solid var(--line); font-size: .9rem; color: var(--ink-2); }
 .nomina-cab strong { color: var(--ink); }
 .cols { display: grid; grid-template-columns: 1fr 1fr; }
-.col { display: flex; flex-direction: column; }
+.col { display: flex; flex-direction: column; min-width: 0; }
 .col .suma { margin-top: auto; }
 .col + .col { border-left: 1px solid var(--line); }
 .col h3, .bloque h3 { background: var(--band); padding: .5rem 1.1rem; font-weight: 600; }
-.linea { display: grid; grid-template-columns: 1fr auto; gap: 1rem; width: 100%; text-align: left; background: none; border: 0; border-top: 1px solid var(--line); padding: .6rem 1.1rem; cursor: pointer; }
+.linea { display: grid; grid-template-columns: 1fr auto var(--chev); column-gap: .8rem; align-items: baseline; width: 100%; text-align: left; background: none; border: 0; border-top: 1px solid var(--line); padding: .6rem 1.1rem; cursor: pointer; }
 .col h3 + .linea, .bloque h3 + .linea { border-top: 0; }
 .linea:hover { background: color-mix(in srgb, var(--band) 55%, transparent); }
 .linea[aria-expanded="true"] { background: color-mix(in srgb, var(--band) 55%, transparent); }
-.linea small { color: var(--muted); font-size: .85rem; margin-left: .35rem; white-space: nowrap; }
-.linea .abre { color: var(--muted); font-size: .85rem; margin-left: .4rem; }
+.linea small { color: var(--ink-2); font-size: .85rem; margin-left: .35rem; white-space: nowrap; }
+.linea small.etq, .recibo .etq { display: inline-block; margin-left: .45rem; padding: 0 .35rem; border: 1px solid var(--muted); border-radius: 3px; font-size: .74rem; line-height: 1.45; color: var(--ink-2); white-space: nowrap; vertical-align: 1px; text-indent: 0; }
+.chev { align-self: center; width: .5rem; height: .5rem; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: translateY(-2px) rotate(45deg); }
+.linea[aria-expanded="true"] .chev { transform: translateY(2px) rotate(-135deg); }
 .detalle { padding: .15rem 1.1rem .9rem; font-size: .95rem; color: var(--ink-2); background: color-mix(in srgb, var(--band) 55%, transparent); }
 .detalle p { margin: 0; max-width: 60ch; }
-.suma { display: grid; grid-template-columns: 1fr auto; gap: 1rem; padding: .6rem 1.1rem; border-top: 1px solid var(--line); font-weight: 600; }
-.resultado { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: baseline; padding: .9rem 1.1rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: 1.15rem; font-weight: 700; }
+.suma { display: grid; grid-template-columns: 1fr auto; gap: 1rem; padding: .6rem calc(1.9rem + var(--chev)) .6rem 1.1rem; border-top: 1px solid var(--line); font-weight: 600; }
+.resultado { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: baseline; padding: .9rem calc(1.9rem + var(--chev)) .9rem 1.1rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: 1.15rem; font-weight: 700; }
 .resultado:last-child { border-bottom: 0; }
 .resultado .num { font-size: 1.35rem; }
+.resultado.paso { font-size: 1rem; font-weight: 600; }
+.resultado.paso .num { font-size: 1rem; }
+.resultado.neto { background: var(--band); }
+.sw { display: inline-block; width: .75rem; height: .75rem; border-radius: 2px; margin-right: .5rem; vertical-align: -1px; }
 @media (max-width: 40rem) {
   .cols { grid-template-columns: 1fr; }
   .col + .col { border-left: 0; border-top: 1px solid var(--line); }
@@ -102,24 +137,50 @@ button { font: inherit; color: inherit; }
 .figura { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 1.2rem 1.1rem 1rem; margin: 1.4rem 0 1rem; }
 .figura h3 { font-size: 1.02rem; font-weight: 600; margin-bottom: .2rem; }
 .figura .sub { font-size: .9rem; color: var(--ink-2); margin: 0 0 1rem; max-width: none; }
-.pie-figura { display: flex; justify-content: space-between; gap: 1rem; align-items: center; margin-top: .9rem; flex-wrap: wrap; }
+.figura-cab { display: flex; flex-wrap: wrap; gap: .6rem 1.5rem; justify-content: space-between; align-items: flex-start; margin-bottom: 1.2rem; }
+.figura-cab .sub { margin: 0; }
+.cifra { font-size: 2rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; margin: .2rem 0 .15rem; max-width: none; }
+.cifra small { font-size: 1rem; font-weight: 400; letter-spacing: 0; color: var(--ink-2); }
+.pie-figura { display: flex; justify-content: space-between; gap: .6rem 1rem; align-items: center; margin-top: .9rem; flex-wrap: wrap; }
 .pie-figura .nota { margin: 0; }
-.ver-tabla { background: none; border: 1px solid var(--line); border-radius: 4px; padding: .3rem .7rem; font-size: .88rem; cursor: pointer; color: var(--ink-2); }
+.ver-tabla { background: none; border: 1px solid var(--line); border-radius: 4px; padding: .3rem .7rem; font-size: .88rem; cursor: pointer; color: var(--ink-2); text-decoration: none; }
 .ver-tabla:hover { border-color: var(--muted); color: var(--ink); }
+.tabla { overflow-x: auto; }
+.tabla .nota { margin: .7rem 0 0; }
 table { border-collapse: collapse; width: 100%; font-size: .95rem; }
 th, td { text-align: left; padding: .4rem .6rem .4rem 0; border-bottom: 1px solid var(--line); }
 th { font-weight: 600; color: var(--ink-2); }
-td.num, th.num { text-align: right; padding-right: 0; }
+td.num, th.num { text-align: right; padding-right: 0; padding-left: .6rem; }
 tr.destacada td { font-weight: 700; }
+.tabla th.num { white-space: normal; }
+@media (max-width: 34rem) {
+  .tabla table { font-size: .86rem; }
+  .tabla th, .tabla td { padding-right: .35rem; }
+  .tabla td.num, .tabla th.num { padding-left: .35rem; }
+}
 
-/* Barra segmentada */
-.segmentada { display: flex; gap: 2px; height: 28px; }
-.segmento { border: 0; padding: 0 .5rem; border-radius: 4px; min-width: 0; display: flex; align-items: center; font-size: .85rem; font-weight: 600; color: #fff; cursor: default; overflow: visible; white-space: nowrap; }
+/* Reparto del coste */
+.reparto-barra { display: flex; gap: 2px; align-items: flex-end; }
+.grupo { min-width: 0; display: flex; flex-direction: column; }
+.grupo-txt { font-size: .84rem; line-height: 1.25; color: var(--ink-2); text-align: center; padding: 0 .15rem .3rem; }
+.grupo-txt b { color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.llave { height: 6px; border: 1px solid var(--muted); border-bottom: 0; border-radius: 3px 3px 0 0; margin: 0 1px 5px; }
+.segmentada { display: flex; gap: 2px; height: 34px; }
+.segmento { border: 0; padding: 0; border-radius: 4px; min-width: 0; cursor: default; }
 .segmento.s1 { background: var(--s1); } .segmento.s2 { background: var(--s2); }
-.segmento.s3 { background: var(--s3); } .segmento.s4 { background: var(--s4); color: var(--on-s4); }
+.segmento.s3 { background: var(--s3); } .segmento.s4 { background: var(--s4); }
 .segmento:hover, .segmento:focus-visible { filter: brightness(1.08); }
-.leyenda { display: flex; flex-wrap: wrap; gap: .35rem 1.3rem; list-style: none; padding: 0; margin: .8rem 0 0; font-size: .9rem; color: var(--ink-2); }
-.leyenda i { display: inline-block; width: .75rem; height: .75rem; border-radius: 2px; margin-right: .4rem; vertical-align: -1px; }
+.pcts { display: flex; gap: 2px; margin-top: 5px; }
+.pcts span { min-width: 0; display: flex; justify-content: center; font-size: .86rem; line-height: 1.2; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.recibo { margin-top: 1.3rem; font-size: .98rem; }
+.recibo th { font-size: .85rem; font-weight: 400; color: var(--muted); padding-top: 0; }
+.recibo td { padding-top: .5rem; padding-bottom: .5rem; }
+.recibo td:first-child { padding-left: 1.25rem; text-indent: -1.25rem; }
+.recibo tr.sub td { font-weight: 600; }
+.recibo tr.sub td:first-child, .recibo tr.total td:first-child { text-indent: 0; }
+.recibo tr.total td { font-weight: 700; font-size: 1.08rem; border-top: 2px solid var(--ink); border-bottom: 0; padding-top: .65rem; }
+.recibo td.parte { color: var(--ink-2); width: 4.6rem; }
+.recibo tr.total td.parte { color: var(--ink); }
 
 /* Barras ordenadas */
 .barras { display: grid; row-gap: 2px; }
@@ -129,7 +190,7 @@ tr.destacada td { font-weight: 700; }
 .fila .pista { height: 14px; }
 .fila .barra { display: block; height: 100%; background: var(--rest); border-radius: 0 4px 4px 0; min-width: 2px; }
 .fila .valor { font-size: .9rem; color: var(--ink-2); text-align: right; }
-.fila .dif { display: inline-block; min-width: 3.6rem; margin-left: .35rem; color: var(--muted); font-size: .82rem; font-weight: 400; text-align: right; }
+.fila .dif { display: inline-block; min-width: 3.6rem; margin-left: .35rem; color: var(--ink-2); font-size: .82rem; font-weight: 400; text-align: right; }
 .fila.destacada .nombre, .fila.destacada .valor { color: var(--ink); font-weight: 700; }
 .fila.destacada .barra { background: var(--accent); }
 @media (max-width: 34rem) {
@@ -145,7 +206,7 @@ tr.destacada td { font-weight: 700; }
 .atajos { display: flex; flex-wrap: wrap; gap: .4rem; margin: .7rem 0 0; }
 .atajos button { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: .25rem .8rem; font-size: .9rem; cursor: pointer; }
 .atajos button:hover { border-color: var(--muted); }
-.atajos button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.atajos button[aria-pressed="true"] { background: var(--on-bg); border-color: var(--on-bg); color: var(--on-ink); }
 .resumen { margin: 1rem 0 0; }
 
 #tip { position: fixed; z-index: 10; pointer-events: none; background: var(--tip-bg); color: var(--tip-ink); padding: .45rem .65rem; border-radius: 5px; font-size: .88rem; line-height: 1.35; max-width: 17rem; box-shadow: 0 4px 14px rgba(0,0,0,.18); }
@@ -154,73 +215,86 @@ ul.sobrio { padding-left: 1.1rem; max-width: 68ch; }
 ul.sobrio li { margin-bottom: .55rem; }
 footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
 @media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
   .fila .barra { transition: width .25s ease; }
+  .chev { transition: transform .15s ease; }
 }
-@media print { .ver-tabla, .controles, .atajos { display: none; } body { background: #fff; } }
+@media print {
+  .indice, .periodo, .ver-tabla, .controles, .atajos, .chev { display: none; }
+  body { background: #fff; }
+  .detalle[hidden] { display: block; }
+}
 </style>
 </head>
 <body>
+
+<nav class="indice" aria-label="Secciones de la página">
+  <div class="indice-in">
+    <a href="#reparto">Cada euro</a>
+    <a href="#nomina">Nómina</a>
+    <a href="#irpf">IRPF por comunidad</a>
+    <a href="#bruto">Sueldo por comunidad</a>
+    <a href="#limites">Lo que no dicen</a>
+    <a href="#fuentes">Fuentes</a>
+    <a href="#porque">Por qué</a>
+  </div>
+</nav>
+
 <main>
 
 <header>
   <h1>Mi nómina de profesor, euro a euro</h1>
   <p class="entrada">Soy profesor de Secundaria interino en un instituto público de la Comunidad de Madrid y doy clase en Formación Profesional. Mi sueldo se paga con dinero público, así que aquí está entero, con cada concepto explicado.</p>
-  <p class="nota">Datos de mis nóminas de septiembre y octubre de 2026, que son idénticas. No hay datos personales ni mi retención de IRPF. Cifras contrastadas con la normativa vigente el 13 de noviembre de 2026.</p>
 </header>
 
-<section id="nomina" aria-labelledby="t-nomina">
-  <h2 id="t-nomina">La nómina de un mes</h2>
-  <p>Pulsa cualquier línea para ver qué es y de dónde sale.</p>
-
-  <div class="nomina">
-    <div class="nomina-cab">
-      <span><strong>Profesores de Enseñanza Secundaria</strong></span>
-      <span>Grupo A1, nivel 24</span>
-      <span>Funcionario interino</span>
-    </div>
-    <div class="cols">
-      <div class="col">
-        <h3>Lo que cobro</h3>
-        <div data-lineas="cobro"></div>
-        <div class="suma"><span>Sueldo bruto</span><span class="num">2.914,79&nbsp;€</span></div>
-      </div>
-      <div class="col">
-        <h3>Lo que me descuentan</h3>
-        <div data-lineas="descuento"></div>
-        <div class="suma"><span>Cotizaciones</span><span class="num">215,29&nbsp;€</span></div>
-      </div>
-    </div>
-    <div class="resultado"><span>Lo que cobro antes de IRPF</span><span class="num">2.699,50&nbsp;€</span></div>
-    <div class="bloque">
-      <h3>Lo que paga además la Administración</h3>
-      <div data-lineas="admin"></div>
-      <div class="suma"><span>Cotizaciones de la Administración</span><span class="num">1.058,20&nbsp;€</span></div>
-    </div>
-    <div class="resultado"><span>Lo que cuesta mi puesto al mes</span><span class="num">3.972,99&nbsp;€</span></div>
-  </div>
-  <p class="nota">A estas doce nóminas se suman dos pagas extra, en junio y diciembre, de 2.383,60&nbsp;€ cada una. Con ellas, el sueldo bruto de un año completo es de 39.744,68&nbsp;€.</p>
-</section>
+<noscript><p>Esta página necesita JavaScript para mostrar las cifras y los gráficos.</p></noscript>
 
 <section id="reparto" aria-labelledby="t-reparto">
   <h2 id="t-reparto">A dónde va cada euro</h2>
-  <p>En un año completo, con las cuantías de 2026, mi puesto cuesta 52.443&nbsp;€. Son los 39.745&nbsp;€ de sueldo bruto más 12.698&nbsp;€ de cotizaciones de la Administración. Para repartirlos hace falta el IRPF, y el mío no lo publico porque depende de mi situación personal. Uso el de un caso tipo, el mismo que emplea el Consejo General de Economistas en sus comparativas, que es una persona soltera, sin hijos y menor de 65 años. Con este sueldo pagaría en Madrid 7.131&nbsp;€ al año.</p>
+  <p>El coste de mi puesto no es solo mi sueldo. Este es el reparto completo entre mi cuenta, Hacienda y la Seguridad Social.</p>
 
   <figure class="figura" id="fig-reparto">
-    <h3>Reparto del coste anual del puesto</h3>
-    <p class="sub">52.443&nbsp;€ al año, con el IRPF del caso tipo en Madrid</p>
-    <div class="grafico">
-      <div class="segmentada" role="group" aria-label="Reparto del coste anual del puesto"></div>
-      <ul class="leyenda"></ul>
+    <div class="figura-cab">
+      <div>
+        <h3>Lo que paga la Comunidad de Madrid por mi puesto</h3>
+        <p class="cifra"><span class="num" id="reparto-total"></span> <small id="reparto-unidad"></small></p>
+        <p class="sub" id="reparto-sub"></p>
+      </div>
+      <div class="periodo" role="group" aria-label="Periodo del reparto">
+        <button type="button" data-periodo="mes" aria-pressed="true">Un mes</button>
+        <button type="button" data-periodo="anio" aria-pressed="false">Un año</button>
+      </div>
     </div>
-    <div class="tabla" hidden></div>
+    <div class="reparto-barra" id="reparto-barra"></div>
+    <table class="recibo" id="recibo">
+      <thead><tr><th scope="col">Concepto</th><th scope="col" class="num">Importe</th><th scope="col" class="num">Parte</th></tr></thead>
+      <tbody></tbody>
+    </table>
     <div class="pie-figura">
-      <p class="nota">Pasa el cursor o pulsa en cada tramo para ver su importe.</p>
-      <button class="ver-tabla" type="button" aria-pressed="false">Ver como tabla</button>
+      <p class="nota" id="reparto-nota"></p>
+      <a class="ver-tabla" href="#nomina">Ver la nómina línea a línea</a>
     </div>
   </figure>
 
-  <p>Con ese IRPF, de cada 100&nbsp;€ que cuesta el puesto llegarían 57 a mi cuenta. Los otros 43 son IRPF y cotizaciones a la Seguridad Social, unos 22.400&nbsp;€ al año entre mi parte y la de la Administración.</p>
+  <p id="reparto-frase" aria-live="polite"></p>
   <p>Con esas cotizaciones se pagan las pensiones, el desempleo y las bajas de hoy, y a cambio genero el derecho a las mías. Y como soy empleado público, todo el coste se paga con dinero público, que sale sobre todo de los impuestos, también de los míos.</p>
+  <p class="nota">Datos de mis nóminas de septiembre y octubre de 2026, que son idénticas. No hay datos personales ni mi retención de IRPF. Cifras contrastadas con la normativa vigente el 14 de noviembre de 2026.</p>
+</section>
+
+<section id="nomina" aria-labelledby="t-nomina">
+  <h2 id="t-nomina">La nómina, línea a línea</h2>
+  <p>Pulsa cualquier línea para ver qué es y de dónde sale.</p>
+
+  <div class="barra-nomina">
+    <div class="periodo" role="group" aria-label="Periodo de la nómina">
+      <button type="button" data-periodo="mes" aria-pressed="true">Un mes</button>
+      <button type="button" data-periodo="anio" aria-pressed="false">Un año</button>
+    </div>
+    <button class="ver-tabla" type="button" id="abrir-todo" aria-pressed="false">Abrir todas las explicaciones</button>
+  </div>
+
+  <div class="nomina" id="nomina-doc"></div>
+  <p class="nota" id="nomina-nota"></p>
 </section>
 
 <section id="irpf" aria-labelledby="t-irpf">
@@ -251,6 +325,7 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
     </div>
   </figure>
 
+  <p id="irpf-nomina"></p>
   <p id="foral"></p>
   <p>Navarra tiene también un sistema propio. Según el Consejo General de Economistas, allí se pagan 4.583&nbsp;€ con un sueldo de 30.000&nbsp;€, algo menos que en Madrid (4.598&nbsp;€), y 9.346&nbsp;€ con 45.000&nbsp;€, más que en Madrid (8.881&nbsp;€).</p>
   <p class="nota">Andalucía, Galicia y Canarias tramitan con sus presupuestos de 2027 rebajas que, según sus proyectos, se aplicarían ya a las rentas de 2026. No están aprobadas y por eso el gráfico no las incluye. Con las de Andalucía y Galicia, que bajan 0,25 puntos los cuatro primeros tramos, este sueldo pagaría allí unos 73&nbsp;€ menos al año. Madrid prevé otra rebaja de medio punto para 2027, también pendiente de aprobación.</p>
@@ -278,7 +353,7 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
 <section id="limites" aria-labelledby="t-limites">
   <h2 id="t-limites">Lo que estos datos no dicen</h2>
   <ul class="sobrio">
-    <li>El IRPF real de cada persona depende de su situación y de las deducciones de su comunidad, que este cálculo no incluye. El caso tipo sirve para comparar comunidades, no para saber lo que paga nadie en concreto.</li>
+    <li>El IRPF real de cada persona depende de su situación y de las deducciones de su comunidad, que este cálculo no incluye. Tampoco la retención de cada nómina tiene por qué ser la del caso tipo. El caso tipo sirve para comparar, no para saber lo que paga nadie en concreto.</li>
     <li>El coste de la vida no está aquí. La vivienda, por ejemplo, cuesta muy distinto en Madrid que en otras comunidades.</li>
     <li>Menos impuestos autonómicos son también menos ingresos para la comunidad. Si compensa o no es una cuestión de opinión, y cada uno tendrá la suya.</li>
     <li>Con los años se cobran trienios, de 53,39&nbsp;€ al mes cada uno, y sexenios. En esta nómina no hay ninguno.</li>
@@ -290,13 +365,15 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
   <ul class="sobrio">
     <li><strong>Sueldo.</strong> Mi nómina de septiembre de 2026, que no publico porque contiene datos personales. Sus cuantías coinciden con la <a href="https://www.bocm.es/boletin/CM_Orden_BOCM/2026/02/09/BOCM-20260209-6.PDF">Orden de 3 de febrero de 2026</a> de la Comunidad de Madrid sobre nóminas (BOCM del 9 de febrero) y con las tablas de <a href="https://documentos.anpemadrid.es/retribuciones_26.pdf">ANPE Madrid</a> y de <a href="https://stemstes.org/wp-content/uploads/2026/02/RETRIBUCIONES-BASICAS-2026.pdf">STEM</a>. Las subidas de 2025 y 2026 están en el <a href="https://www.boe.es/diario_boe/txt.php?id=BOE-A-2025-24445">Real Decreto-ley 14/2025</a>, y la estructura del sueldo en los artículos 22 a 25 del <a href="https://papelea.com/es/leyes/estatuto-basico-del-empleado-publico-ebep/titulo-iii_capitulo-iii">Estatuto Básico del Empleado Público</a>.</li>
     <li><strong>Cotizaciones.</strong> <a href="https://www.boe.es/eli/es/o/2026/03/30/pjc297">Orden PJC/297/2026</a>, que fija los tipos y las bases de cotización a la Seguridad Social de 2026.</li>
+    <li><strong>Retención de IRPF.</strong> <a href="https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2026/Algoritmo%20Retenciones-2026_10sept.pdf">Algoritmo de cálculo del tipo de retención de 2026</a> y <a href="https://sede.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/modelos/rw/retenciones2026.pdf">cuadro de tipos de retención de 2026</a>, de la Agencia Tributaria.</li>
     <li><strong>IRPF.</strong> Escalas y mínimos del <a href="https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c15-calculo-impuesto-determinacion-cuotas-integras/gravamen-base-liquidable-general/gravamen-autonomico.html">Manual práctico de Renta 2025</a> de la Agencia Tributaria, actualizados con el informe <a href="https://www.hacienda.gob.es/sgfal/financiacionterritorial/autonomica/capitulo-i-tributacion-autonomica-2026.pdf">Tributación autonómica. Medidas 2026</a> del Ministerio de Hacienda y con dos leyes posteriores que rebajan la escala de 2026, la <a href="https://www.boe.es/eli/es-vc/l/2026/07/31/5">Ley 5/2026</a> de la Comunitat Valenciana y la <a href="https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-17839">Ley 2/2026</a> de Extremadura.</li>
     <li><strong>Contraste del IRPF.</strong> <a href="https://multimedia2.coev.com/pdfs/panorama-fiscalidad2026.pdf">Panorama de la fiscalidad autonómica y foral 2026</a>, del Consejo General de Economistas, de donde salen el caso tipo y las cifras de Navarra, y la <a href="https://visorfiscal.es/blog/cuanto-irpf-comunidad-autonoma-30000-euros-2026">comparativa de visorfiscal</a> para 30.000&nbsp;€.</li>
     <li><strong>País Vasco.</strong> Tarifa y minoración de cuota de 2026 según la <a href="https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01877">Diputación Foral de Bizkaia</a>, y bonificación del trabajo según la <a href="https://www.bbva.es/content/dam/public-web/bbvaes/documents/productos/banca-privada/Nota-Novedades-Fiscales-Bizkaia-mayo-2025.pdf">nota de BBVA sobre la reforma fiscal de 2025</a>.</li>
     <li><strong>Sueldo por comunidades.</strong> <a href="https://ugt-sp.es/wp-content/uploads/boletin-retribuciones-docentes-2025-web.pdf">Retribuciones docentes en la enseñanza pública 2025</a>, de UGT.</li>
     <li><strong>Rebajas en tramitación.</strong> <a href="https://www.xunta.gal/documents/35297/43087/161026+REFERENCIA.pdf?version=1.0">Referencia del Consello de la Xunta</a> del 16 de octubre de 2026, <a href="https://www.juntadeandalucia.es/presidencia/portavoz/economiayempleo/220050/JuntadeAndalucia/ConsejodeGobierno">nota de la Junta de Andalucía</a> del 30 de octubre, y las informaciones de <a href="https://www.atlanticohoy.com/economia/canarias-proyecta-nuevas-rebajas-impuestos-pese-advertencia-airef-sobre-sus-cuentas_1569743_102.html">Atlántico Hoy</a> sobre Canarias, de <a href="https://www.vozpopuli.com/espana/madrid/ayuso-cumple-su-promesa-y-aprueba-una-nueva-rebaja-fiscal-bajara-medio-punto-el-irpf-a-los-madrilenos-en-2027.html">Vozpópuli</a> sobre Madrid y del <a href="https://guiafiscal.es/actualidad/rebajas-irpf-2027-comunidades/">seguimiento de guiafiscal.es</a>.</li>
   </ul>
-  <p class="nota">El IRPF se calcula restando al sueldo bruto las cotizaciones del trabajador (6,5&nbsp;%) y 2.000&nbsp;€ de gastos, aplicando la escala estatal y la autonómica y descontando el mínimo personal. En las trece comunidades que no han cambiado su escala durante 2026, el resultado coincide al céntimo con el informe de los economistas para 30.000 y 45.000&nbsp;€ y con la comparativa de visorfiscal para 30.000&nbsp;€.</p>
+  <p class="nota">La retención del caso tipo sigue el algoritmo de la Agencia Tributaria. Al sueldo bruto del año se le restan las cotizaciones del trabajador y 2.000&nbsp;€ de gastos, se aplica la escala de retenciones, que va del 19&nbsp;% al 47&nbsp;%, y se descuenta el mínimo personal de 5.550&nbsp;€. El resultado se divide entre el sueldo y se trunca a dos decimales, lo que da el 19,27&nbsp;%. Esa escala es la misma en las quince comunidades de régimen común, así que la de cada comunidad solo se nota en la declaración. La única excepción es la isla de La Palma, cuyos residentes tienen desde septiembre de 2026 una rebaja estatal en la retención.</p>
+  <p class="nota">El IRPF del año se calcula restando al sueldo bruto las cotizaciones del trabajador (6,5&nbsp;%) y 2.000&nbsp;€ de gastos, aplicando la escala estatal y la autonómica y descontando el mínimo personal. En las trece comunidades que no han cambiado su escala durante 2026, el resultado coincide al céntimo con el informe de los economistas para 30.000 y 45.000&nbsp;€ y con la comparativa de visorfiscal para 30.000&nbsp;€.</p>
   <p class="nota">En el País Vasco no hay mínimo personal ni gastos de 2.000&nbsp;€. Se resta del sueldo una bonificación del trabajo, que es de 3.000&nbsp;€ a partir de 23.000&nbsp;€, y de la cuota una minoración de 1.615&nbsp;€. Con esas reglas se obtienen las mismas cifras que da el informe de los economistas para 30.000 y 45.000&nbsp;€. Las de Navarra son las del informe y no las he recalculado. Una <a href="https://www.fiscal-impuestos.com/navarra-ley-foral-17-2025-modificaciones-tributarias">ley foral de diciembre de 2025</a> mejoró allí las deducciones de las rentas de hasta 32.000&nbsp;€, así que su cifra para 30.000&nbsp;€ podría ser algo menor.</p>
   <p class="nota">El año completo son doce nóminas y dos pagas extra. Cada paga extra suma el sueldo reducido que fija la norma para esas pagas (856,05&nbsp;€), el complemento de destino y el complemento específico. Las cuantías cambiarán en 2027.</p>
 </section>
@@ -319,11 +396,14 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
   'use strict';
 
   // ---------- utilidades ----------
+  var NB = ' ';
   function fmt(n, dec) {
     var s = Math.abs(n).toFixed(dec === undefined ? 0 : dec).split('.');
     s[0] = s[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     return (n < 0 ? '-' : '') + s.join(',');
   }
+  function eur(n, dec) { return fmt(n, dec) + NB + '€'; }
+  function r2(x) { return Math.round(x * 100) / 100; }
   function el(tag, cls, text) {
     var e = document.createElement(tag);
     if (cls) e.className = cls;
@@ -353,7 +433,7 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
     nodo.addEventListener('blur', hideTip);
   }
   function vistaTabla(figura, construir) {
-    var boton = figura.querySelector('.ver-tabla');
+    var boton = figura.querySelector('button.ver-tabla');
     var grafico = figura.querySelector('.grafico');
     var tabla = figura.querySelector('.tabla');
     boton.addEventListener('click', function () {
@@ -379,113 +459,7 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
     return t;
   }
 
-  // ---------- la nómina ----------
-  var LINEAS = {
-    cobro: [
-      ['Sueldo', '', 1387.24, 'La parte básica. Depende del grupo de clasificación, y el profesorado de Secundaria está en el A1, el más alto de la función pública. La fija el Estado cada año y es la misma para cualquier funcionario A1 de España. La de 2026 incluye las subidas del 2,5 % y del 1,5 % aprobadas en diciembre de 2025.'],
-      ['Complemento de destino', '', 729.14, 'Depende del nivel del puesto, que en Secundaria es el 24. Su cuantía la publica cada año la Comunidad de Madrid en su orden de nóminas.'],
-      ['Complemento específico general docente', '', 798.41, 'Paga las características propias del puesto docente. Lo fija cada comunidad autónoma, y por eso es la parte que más cambia de una región a otra.']
-    ],
-    descuento: [
-      ['Contingencias comunes', '4,70\u00a0%', 155.67, 'Financia las pensiones, las bajas por enfermedad común y otras prestaciones. Como todas las cotizaciones, se calcula sobre la base de cotización, que es de 3.312,06\u00a0€ porque suma al sueldo mensual la parte proporcional de las pagas extra.'],
-      ['Desempleo', '1,55\u00a0%', 51.34, 'Financia la prestación por desempleo. La pago porque soy interino. Los funcionarios de carrera no cotizan por desempleo.'],
-      ['Formación profesional', '0,10\u00a0%', 3.31, 'Financia la formación para el empleo.'],
-      ['Mecanismo de Equidad Intergeneracional', '0,15\u00a0%', 4.97, 'Alimenta el Fondo de Reserva de la Seguridad Social, la llamada hucha de las pensiones.'],
-      ['IRPF', '', null, 'No lo incluyo. La retención depende de la situación personal y familiar de cada uno y de los meses trabajados en el año. Más abajo uso un caso tipo para poder comparar.']
-    ],
-    admin: [
-      ['Contingencias comunes', '23,60\u00a0%', 781.65, 'La parte de la Administración para pensiones y bajas. Es cinco veces la mía.'],
-      ['Desempleo', '5,50\u00a0%', 182.16, 'La parte de la Administración para la prestación por desempleo.'],
-      ['Accidentes de trabajo y enfermedades profesionales', '1,50\u00a0%', 49.68, 'Cubre los accidentes laborales y las enfermedades profesionales. El tipo depende de la actividad y lo paga solo el empleador.'],
-      ['Formación profesional', '0,60\u00a0%', 19.87, 'La parte de la Administración para la formación para el empleo.'],
-      ['Mecanismo de Equidad Intergeneracional', '0,75\u00a0%', 24.84, 'La parte de la Administración para el Fondo de Reserva de la Seguridad Social.']
-    ]
-  };
-  var abierta = null;
-  Object.keys(LINEAS).forEach(function (grupo) {
-    var cont = document.querySelector('[data-lineas="' + grupo + '"]');
-    LINEAS[grupo].forEach(function (l, i) {
-      var id = 'det-' + grupo + '-' + i;
-      var b = el('button', 'linea'); b.type = 'button';
-      b.setAttribute('aria-expanded', 'false'); b.setAttribute('aria-controls', id);
-      var izq = el('span', null, l[0]);
-      if (l[1]) izq.appendChild(el('small', null, l[1]));
-      b.appendChild(izq);
-      b.appendChild(el('span', 'num', l[2] === null ? 'no incluido' : fmt(l[2], 2) + '\u00a0€'));
-      var d = el('div', 'detalle'); d.id = id; d.hidden = true; d.appendChild(el('p', null, l[3]));
-      b.addEventListener('click', function () {
-        var abrir = d.hidden;
-        if (abierta && abierta.d !== d) { abierta.d.hidden = true; abierta.b.setAttribute('aria-expanded', 'false'); }
-        d.hidden = !abrir; b.setAttribute('aria-expanded', String(abrir));
-        abierta = abrir ? { b: b, d: d } : null;
-      });
-      cont.appendChild(b); cont.appendChild(d);
-    });
-  });
-
-  // ---------- reparto del coste ----------
-  var PARTES = [
-    ['Sueldo neto', 30030.25, 's1'],
-    ['IRPF del caso tipo', 7130.95, 's2'],
-    ['Seguridad Social, mi parte', 2583.48, 's3'],
-    ['Seguridad Social, parte de la Administración', 12698.40, 's4']
-  ];
-  var totalCoste = PARTES.reduce(function (a, p) { return a + p[1]; }, 0);
-  (function () {
-    var fig = document.getElementById('fig-reparto');
-    var barra = fig.querySelector('.segmentada'), ley = fig.querySelector('.leyenda');
-    PARTES.forEach(function (p) {
-      var pct = p[1] / totalCoste * 100;
-      var s = el('button', 'segmento ' + p[2]); s.type = 'button';
-      s.style.flex = p[1] + ' 1 0';
-      s.setAttribute('aria-label', p[0] + ', ' + fmt(p[1]) + ' euros, ' + fmt(pct) + ' por ciento');
-      var etiqueta = el('span', null, fmt(pct) + '\u00a0%');
-      s.appendChild(etiqueta);
-      conTip(s, function () { return [fmt(p[1]) + '\u00a0€ al año', [p[0], fmt(pct, 1) + ' % del coste']]; });
-      barra.appendChild(s);
-      var li = el('li'); var sw = el('i'); sw.style.background = 'var(--' + p[2] + ')';
-      li.appendChild(sw); li.appendChild(document.createTextNode(p[0])); ley.appendChild(li);
-    });
-    function ajustar() {
-      barra.querySelectorAll('.segmento').forEach(function (s) {
-        var sp = s.firstChild; sp.hidden = false;
-        if (sp.offsetWidth + 16 > s.clientWidth) sp.hidden = true;
-      });
-    }
-    ajustar(); window.addEventListener('resize', ajustar);
-    vistaTabla(fig, function () {
-      return tabla(['Destino', 'Euros al año', 'Parte'], PARTES.map(function (p) {
-        return { celdas: [p[0], fmt(p[1]), fmt(p[1] / totalCoste * 100, 1) + '\u00a0%'] };
-      }).concat([{ destacada: true, celdas: ['Coste total', fmt(totalCoste), '100\u00a0%'] }]));
-    });
-  })();
-
-  // ---------- barras ordenadas ----------
-  function pintarBarras(fig, filas, opciones) {
-    var cont = fig.querySelector('.barras');
-    var max = Math.max.apply(null, filas.map(function (f) { return f.v; }));
-    var existentes = {};
-    cont.querySelectorAll('.fila').forEach(function (n) { existentes[n.dataset.k] = n; });
-    filas.forEach(function (f, i) {
-      var n = existentes[f.n];
-      if (!n) {
-        n = el('div', 'fila'); n.dataset.k = f.n; n.tabIndex = 0;
-        n.appendChild(el('span', 'nombre', f.n));
-        var pista = el('span', 'pista'); pista.appendChild(el('span', 'barra')); n.appendChild(pista);
-        n.appendChild(el('span', 'valor num'));
-        conTip(n, function () { return n._tip; });
-      }
-      n.classList.toggle('destacada', !!f.destacada);
-      n.querySelector('.barra').style.width = (f.v / max * 100).toFixed(2) + '%';
-      var val = n.querySelector('.valor'); val.textContent = fmt(f.v) + '\u00a0€';
-      val.appendChild(el('span', 'dif', f.dif === undefined || f.destacada ? '' : (f.dif >= 0 ? '+' : '-') + fmt(Math.abs(f.dif))));
-      n.setAttribute('aria-label', f.n + ', ' + fmt(f.v) + ' euros' + (f.extra ? ', ' + f.extra : ''));
-      n._tip = [fmt(f.v) + '\u00a0€' + (opciones.unidad || ''), [f.n].concat(f.extra ? [f.extra] : [])];
-      cont.appendChild(n);
-    });
-  }
-
-  // ---------- IRPF por comunidades ----------
+  // ---------- IRPF: escalas de 2026 ----------
   var INF = Infinity;
   var ESTATAL = [[12450, 9.5], [20200, 12], [35200, 15], [60000, 18.5], [300000, 22.5], [INF, 24.5]];
   var MIN_ESTATAL = 5550;
@@ -506,6 +480,7 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
     { n: 'La Rioja', min: 5550, e: [[12450, 8], [20200, 10.6], [35200, 13.6], [40000, 17.8], [50000, 18.3], [60000, 19], [120000, 24.5], [INF, 27]] },
     { n: 'Comunitat Valenciana', min: 6105, e: [[12000, 8.8], [22000, 11.7], [32000, 14.6], [42000, 17], [52000, 19.4], [62000, 21.9], [72000, 24.4], [100000, 26.1], [150000, 27.35], [200000, 28.35], [INF, 29.35]] }
   ];
+  var MADRID = CCAA.filter(function (c) { return c.n === 'Madrid'; })[0];
   function cuota(base, escala) {
     var c = 0, prev = 0;
     for (var i = 0; i < escala.length; i++) {
@@ -515,6 +490,7 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
     }
     return c;
   }
+  // IRPF del año del caso tipo: persona soltera, sin hijos y menor de 65 años
   function irpf(bruto, ca) {
     var base = bruto * (1 - 0.065) - 2000;
     return cuota(base, ESTATAL) - cuota(MIN_ESTATAL, ESTATAL) + cuota(base, ca.e) - cuota(ca.min, ca.e);
@@ -526,15 +502,271 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
     var bonif = dif <= 14800 ? 8000 : (dif <= 23000 ? 8000 - 0.6098 * (dif - 14800) : 3000);
     return Math.max(0, cuota(dif - bonif, PAIS_VASCO) - 1615);
   }
+  // Retención en nómina del caso tipo, según el algoritmo de la Agencia Tributaria para 2026.
+  // Es igual en las quince comunidades de régimen común.
+  var ESCALA_RET = [[12450, 19], [20200, 24], [35200, 30], [60000, 37], [300000, 45], [INF, 47]];
+  function retencion(bruto, cotizaciones) {
+    var cot = cotizaciones === undefined ? bruto * 0.065 : cotizaciones;
+    var rnt = bruto - cot;
+    var red = rnt <= 14852 ? 7302 : (rnt <= 17673.52 ? 7302 - 1.75 * (rnt - 14852) : (rnt < 19747.5 ? 2364.34 - 1.14 * (rnt - 17673.52) : 0));
+    var base = Math.max(0, rnt - 2000 - red);
+    var c = Math.max(0, cuota(base, ESCALA_RET) - cuota(MIN_ESTATAL, ESCALA_RET));
+    if (bruto <= 35200) c = Math.min(c, Math.max(0, (bruto - 15876) * 0.43));
+    var tipo = Math.floor(c / bruto * 10000 + 1e-7) / 100;
+    return { tipo: tipo, importe: r2(bruto * tipo / 100) };
+  }
 
+  // ---------- datos de la nómina ----------
+  var COBRO = [
+    ['Sueldo', '', 1387.24, 'La parte básica. Depende del grupo de clasificación, y el profesorado de Secundaria está en el A1, el más alto de la función pública. La fija el Estado cada año y es la misma para cualquier funcionario A1 de España. La de 2026 incluye las subidas del 2,5' + NB + '% y del 1,5' + NB + '% aprobadas en diciembre de 2025.'],
+    ['Complemento de destino', '', 729.14, 'Depende del nivel del puesto, que en Secundaria es el 24. Su cuantía la publica cada año la Comunidad de Madrid en su orden de nóminas.'],
+    ['Complemento específico general docente', '', 798.41, 'Paga las características propias del puesto docente. Lo fija cada comunidad autónoma, y por eso es la parte que más cambia de una región a otra.']
+  ];
+  var SUELDO_EXTRA = 856.05;
+  var SS_MIA = [
+    ['Contingencias comunes', '4,70' + NB + '%', 155.67, 'Financia las pensiones, las bajas por enfermedad común y otras prestaciones. Como todas las cotizaciones, se calcula sobre la base de cotización, que es de 3.312,06' + NB + '€ al mes porque suma al sueldo mensual la parte proporcional de las pagas extra.'],
+    ['Desempleo', '1,55' + NB + '%', 51.34, 'Financia la prestación por desempleo. La pago porque soy interino. Los funcionarios de carrera no cotizan por desempleo.'],
+    ['Formación profesional', '0,10' + NB + '%', 3.31, 'Financia la formación para el empleo.'],
+    ['Mecanismo de Equidad Intergeneracional', '0,15' + NB + '%', 4.97, 'Alimenta el Fondo de Reserva de la Seguridad Social, la llamada hucha de las pensiones.']
+  ];
+  var SS_ADMIN = [
+    ['Contingencias comunes', '23,60' + NB + '%', 781.65, 'La parte de la Administración para pensiones y bajas. Es cinco veces la mía.'],
+    ['Desempleo', '5,50' + NB + '%', 182.16, 'La parte de la Administración para la prestación por desempleo.'],
+    ['Accidentes de trabajo y enfermedades profesionales', '1,50' + NB + '%', 49.68, 'Cubre los accidentes laborales y las enfermedades profesionales. El tipo depende de la actividad y lo paga solo el empleador.'],
+    ['Formación profesional', '0,60' + NB + '%', 19.87, 'La parte de la Administración para la formación para el empleo.'],
+    ['Mecanismo de Equidad Intergeneracional', '0,75' + NB + '%', 24.84, 'La parte de la Administración para el Fondo de Reserva de la Seguridad Social.']
+  ];
+  function suma(lista) { return r2(lista.reduce(function (t, l) { return t + l[2]; }, 0)); }
+  var brutoMes = suma(COBRO);
+  var pagaExtra = r2(SUELDO_EXTRA + COBRO[1][2] + COBRO[2][2]);
+  var brutoAnio = r2(brutoMes * 12 + pagaExtra * 2);
+  var ssMes = suma(SS_MIA), ssAdminMes = suma(SS_ADMIN);
+  var ssAnio = r2(ssMes * 12), ssAdminAnio = r2(ssAdminMes * 12);
+  var RET = retencion(brutoAnio, ssAnio);
+  var retMes = r2(brutoMes * RET.tipo / 100), retExtra = r2(pagaExtra * RET.tipo / 100);
+  var retAnio = r2(retMes * 12 + retExtra * 2);
+  var netoMes = r2(brutoMes - ssMes - retMes), netoExtra = r2(pagaExtra - retExtra);
+  var netoNominas = r2(brutoAnio - ssAnio - retAnio);
+  var irpfAnio = r2(irpf(brutoAnio, MADRID));
+  var devolucion = r2(retAnio - irpfAnio);
+  var netoAnio = r2(netoNominas + devolucion);
+  var TIPO_RET = fmt(RET.tipo, 2) + NB + '%';
+  var P = {
+    mes: { neto: netoMes, irpf: retMes, ss: ssMes, bruto: brutoMes, ssAdmin: ssAdminMes, coste: r2(brutoMes + ssAdminMes) },
+    anio: { neto: netoAnio, irpf: irpfAnio, ss: ssAnio, bruto: brutoAnio, ssAdmin: ssAdminAnio, coste: r2(brutoAnio + ssAdminAnio) }
+  };
+
+  // ---------- selector de periodo, compartido por el reparto y la nómina ----------
+  var periodo = 'mes', alCambiar = [];
+  function fijarPeriodo(p) {
+    periodo = p;
+    document.querySelectorAll('.periodo button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.periodo === p)); });
+    alCambiar.forEach(function (f) { f(p); });
+  }
+  document.querySelectorAll('.periodo button').forEach(function (b) {
+    b.addEventListener('click', function () { if (b.dataset.periodo !== periodo) fijarPeriodo(b.dataset.periodo); });
+  });
+
+  // ---------- reparto del coste ----------
+  (function () {
+    var barra = document.getElementById('reparto-barra'), cuerpo = document.querySelector('#recibo tbody');
+    var sub = document.getElementById('reparto-sub'), nota = document.getElementById('reparto-nota'), frase = document.getElementById('reparto-frase');
+    var total = document.getElementById('reparto-total'), unidad = document.getElementById('reparto-unidad');
+    // partes: [nombre, importe, clase de color]
+    function grupo(texto, total, partes, alAnio) {
+      var v = r2(partes.reduce(function (a, x) { return a + x[1]; }, 0));
+      var g = el('div', 'grupo'); g.style.flex = v + ' 1 0';
+      var t = el('div', 'grupo-txt', texto + ' '); t.appendChild(el('b', null, eur(v))); g.appendChild(t);
+      var ll = el('div', 'llave'); ll.setAttribute('aria-hidden', 'true'); g.appendChild(ll);
+      var barras = el('div', 'segmentada'), pcts = el('div', 'pcts'); pcts.setAttribute('aria-hidden', 'true');
+      partes.forEach(function (x) {
+        var pct = x[1] / total * 100;
+        var s = el('button', 'segmento ' + x[2]); s.type = 'button';
+        s.style.flex = x[1] + ' 1 0';
+        s.setAttribute('aria-label', x[0] + ', ' + fmt(x[1], 2) + ' euros, ' + fmt(pct) + ' por ciento');
+        conTip(s, function () { return [eur(x[1], 2) + (alAnio ? ' al año' : ' al mes'), [x[0], fmt(pct, 1) + NB + '% del coste']]; });
+        barras.appendChild(s);
+        var e = el('span', null, fmt(pct) + NB + '%'); e.style.flex = x[1] + ' 1 0'; pcts.appendChild(e);
+      });
+      g.appendChild(barras); g.appendChild(pcts);
+      return g;
+    }
+    function fila(clase, muestra, nombre, etiqueta, v, total) {
+      var tr = el('tr', clase), td = el('td');
+      if (muestra) { var sw = el('i', 'sw'); sw.style.background = 'var(--' + muestra + ')'; td.appendChild(sw); }
+      td.appendChild(document.createTextNode(nombre));
+      if (etiqueta) td.appendChild(el('small', 'etq', etiqueta));
+      tr.appendChild(td);
+      tr.appendChild(el('td', 'num', eur(v, 2)));
+      tr.appendChild(el('td', 'num parte', (v === total ? '100' : fmt(v / total * 100, 1)) + NB + '%'));
+      return tr;
+    }
+    function pintar(p) {
+      var d = P[p], anio = p === 'anio', t = d.coste, resto = r2(d.irpf + d.ss + d.ssAdmin);
+      var nIrpf = anio ? 'IRPF del año en Madrid' : 'IRPF, retención en la nómina';
+      barra.textContent = '';
+      barra.setAttribute('role', 'group');
+      barra.setAttribute('aria-label', 'Reparto del coste de mi puesto en ' + (anio ? 'un año' : 'un mes'));
+      barra.appendChild(grupo('A mi cuenta', t, [['Neto que llegaría a mi cuenta', d.neto, 's1']], anio));
+      barra.appendChild(grupo('IRPF y cotizaciones', t, [
+        [nIrpf + ', caso tipo', d.irpf, 's2'],
+        ['Seguridad Social, mi parte', d.ss, 's3'],
+        ['Seguridad Social, parte de la Administración', d.ssAdmin, 's4']
+      ], anio));
+      cuerpo.textContent = '';
+      cuerpo.appendChild(fila(null, 's1', 'Neto que llegaría a mi cuenta', '', d.neto, t));
+      cuerpo.appendChild(fila(null, 's2', nIrpf, 'caso tipo', d.irpf, t));
+      cuerpo.appendChild(fila(null, 's3', 'Seguridad Social, mi parte', '', d.ss, t));
+      cuerpo.appendChild(fila('sub', null, 'Sueldo bruto', '', d.bruto, t));
+      cuerpo.appendChild(fila(null, 's4', 'Seguridad Social, parte de la Administración', '', d.ssAdmin, t));
+      cuerpo.appendChild(fila('total', null, 'Total que paga la Comunidad de Madrid', '', t, t));
+      total.textContent = eur(t, 2);
+      unidad.textContent = anio ? 'al año' : 'al mes';
+      sub.textContent = anio ? 'Un año completo, con las cuantías de 2026' : 'Un mes normal de 2026, sin paga extra';
+      nota.textContent = 'El IRPF no es el mío, que no publico porque depende de mi situación personal. Es el de un caso tipo, una persona soltera, sin hijos y menor de 65 años.';
+      var a = Math.round(d.neto / t * 100);
+      frase.textContent = (anio ? 'En un año completo' : 'En un mes normal') + ', de cada 100' + NB + '€ que paga la Comunidad de Madrid por mi puesto llegarían ' + a + ' a mi cuenta. Los otros ' + (100 - a) + ' son IRPF y cotizaciones a la Seguridad Social, ' + eur(resto) + (anio ? ' al año' : ' al mes') + ' entre mi parte y la de la Administración.' +
+        (anio ? ' La proporción es algo mejor que en un mes normal porque las pagas extra no llevan cotizaciones, que ya se pagan mes a mes, y porque en Madrid la declaración devuelve parte de lo retenido.' : '');
+    }
+    alCambiar.push(pintar);
+    pintar(periodo);
+  })();
+
+  // ---------- la nómina, línea a línea ----------
+  (function () {
+    var doc = document.getElementById('nomina-doc'), nota = document.getElementById('nomina-nota'), abrirTodo = document.getElementById('abrir-todo');
+    function lineas(lista, factor) {
+      return lista.map(function (l) { return { n: l[0], pct: l[1], v: r2(l[2] * factor), txt: l[3] }; });
+    }
+    function sincronizar() {
+      var cerradas = doc.querySelectorAll('.linea[aria-expanded="false"]').length;
+      abrirTodo.setAttribute('aria-pressed', String(cerradas === 0));
+      abrirTodo.textContent = cerradas === 0 ? 'Cerrar todas las explicaciones' : 'Abrir todas las explicaciones';
+    }
+    function abrir(b, si) {
+      document.getElementById(b.getAttribute('aria-controls')).hidden = !si;
+      b.setAttribute('aria-expanded', String(si));
+    }
+    function linea(cont, l, id) {
+      var b = el('button', 'linea'); b.type = 'button';
+      b.setAttribute('aria-expanded', 'false'); b.setAttribute('aria-controls', id);
+      var izq = el('span', null, l.n);
+      if (l.pct) izq.appendChild(el('small', null, l.pct));
+      if (l.etq) izq.appendChild(el('small', 'etq', l.etq));
+      b.appendChild(izq);
+      b.appendChild(el('span', 'num', eur(l.v, 2)));
+      var ch = el('i', 'chev'); ch.setAttribute('aria-hidden', 'true'); b.appendChild(ch);
+      var d = el('div', 'detalle'); d.id = id; d.hidden = true; d.appendChild(el('p', null, l.txt));
+      b.addEventListener('click', function () { abrir(b, d.hidden); sincronizar(); });
+      cont.appendChild(b); cont.appendChild(d);
+    }
+    function bloque(clase, titulo, lista, textoSuma, vSuma, prefijo) {
+      var c = el('div', clase);
+      c.appendChild(el('h3', null, titulo));
+      lista.forEach(function (l, i) { linea(c, l, prefijo + '-' + i); });
+      var s = el('div', 'suma'); s.appendChild(el('span', null, textoSuma)); s.appendChild(el('span', 'num', eur(vSuma, 2)));
+      c.appendChild(s);
+      return c;
+    }
+    function resultado(clase, muestra, texto, v) {
+      var r = el('div', 'resultado' + (clase ? ' ' + clase : '')), t = el('span');
+      if (muestra) { var sw = el('i', 'sw'); sw.style.background = 'var(--' + muestra + ')'; t.appendChild(sw); }
+      t.appendChild(document.createTextNode(texto));
+      r.appendChild(t); r.appendChild(el('span', 'num', eur(v, 2)));
+      return r;
+    }
+    function pintar(p) {
+      var anio = p === 'anio', d = P[p], f = anio ? 12 : 1, k = p + '-';
+      doc.textContent = '';
+      var cab = el('div', 'nomina-cab');
+      var s1 = el('span'); s1.appendChild(el('strong', null, 'Profesores de Enseñanza Secundaria')); cab.appendChild(s1);
+      cab.appendChild(el('span', null, 'Grupo A1, nivel 24'));
+      cab.appendChild(el('span', null, 'Funcionario interino'));
+      cab.appendChild(el('span', null, anio ? 'Año 2026 completo' : 'Un mes normal de 2026'));
+      doc.appendChild(cab);
+
+      var cobro = anio ? [
+        { n: 'Doce mensualidades', v: r2(brutoMes * 12), txt: 'Las doce nóminas del año, de ' + eur(brutoMes, 2) + ' cada una. Suman ' + eur(COBRO[0][2] * 12, 2) + ' de sueldo, ' + eur(COBRO[1][2] * 12, 2) + ' de complemento de destino y ' + eur(COBRO[2][2] * 12, 2) + ' de complemento específico.' },
+        { n: 'Paga extra de junio', v: pagaExtra, txt: 'Suma el sueldo que la norma fija para las pagas extra, que es más bajo que el mensual (' + eur(SUELDO_EXTRA, 2) + '), el complemento de destino (' + eur(COBRO[1][2], 2) + ') y el complemento específico (' + eur(COBRO[2][2], 2) + '). No lleva cotizaciones porque ya se pagan repartidas entre las doce mensualidades.' },
+        { n: 'Paga extra de diciembre', v: pagaExtra, txt: 'Igual que la de junio.' }
+      ] : lineas(COBRO, 1);
+      var desc = lineas(SS_MIA, f);
+      desc.push(anio
+        ? { n: 'IRPF', pct: TIPO_RET, etq: 'caso tipo', v: retAnio, txt: 'La misma retención del ' + TIPO_RET + ' en las catorce pagas del año. Son doce de ' + eur(retMes, 2) + ' y dos de ' + eur(retExtra, 2) + ', las de las pagas extra.' }
+        : { n: 'IRPF', pct: TIPO_RET, etq: 'caso tipo', v: retMes, txt: 'No publico mi retención, que depende de mi situación personal. Esta es la que tendría un caso tipo, una persona soltera, sin hijos y menor de 65 años que cobrara este sueldo todo el año. Sale del algoritmo oficial de la Agencia Tributaria para 2026 y es el ' + TIPO_RET + ' del bruto. Es la misma en las quince comunidades de régimen común, porque la retención no tiene en cuenta la escala de cada comunidad. Esa diferencia se ajusta después, en la declaración.' });
+
+      var cols = el('div', 'cols');
+      cols.appendChild(bloque('col', 'Lo que cobro', cobro, 'Sueldo bruto', d.bruto, k + 'cobro'));
+      cols.appendChild(bloque('col', 'Lo que me descuentan', desc, 'Descuentos', r2(d.ss + (anio ? retAnio : retMes)), k + 'desc'));
+      doc.appendChild(cols);
+
+      if (anio) {
+        doc.appendChild(resultado('paso', null, 'Neto cobrado en las catorce pagas', netoNominas));
+        doc.appendChild(bloque('bloque', 'La declaración de la renta del caso tipo', [
+          { n: 'Ya retenido en las nóminas', v: retAnio, txt: 'Lo que se fue adelantando en las catorce pagas del año.' },
+          { n: 'IRPF del año en Madrid', etq: 'caso tipo', v: irpfAnio, txt: 'Lo que le corresponde pagar al caso tipo por el año completo. Aquí sí cuenta la escala de cada comunidad, y la de Madrid es más baja que la que se usa para calcular las retenciones.' }
+        ], devolucion >= 0 ? 'Sale a devolver' : 'Sale a pagar', Math.abs(devolucion), k + 'decl'));
+        doc.appendChild(resultado('neto', 's1', 'Neto del año, hecha la declaración', netoAnio));
+      } else {
+        doc.appendChild(resultado('neto', 's1', 'Neto que llegaría a mi cuenta', netoMes));
+      }
+      doc.appendChild(bloque('bloque', 'Lo que paga además la Administración', lineas(SS_ADMIN, f), 'Cotizaciones de la Administración', d.ssAdmin, k + 'admin'));
+      doc.appendChild(resultado(null, null, anio ? 'Lo que cuesta mi puesto al año' : 'Lo que cuesta mi puesto al mes', d.coste));
+
+      nota.textContent = anio
+        ? 'La declaración se presenta al año siguiente, así que la devolución llega más tarde que las nóminas. Repartido entre doce meses, el neto del año equivale a ' + eur(netoAnio / 12, 2) + ' al mes.'
+        : 'En junio y diciembre se cobra además una paga extra de ' + eur(pagaExtra, 2) + ' brutos, que con la misma retención son ' + eur(netoExtra, 2) + ' netos. Antes de IRPF, el sueldo del mes se queda en ' + eur(brutoMes - ssMes, 2) + '.';
+      sincronizar();
+    }
+    abrirTodo.addEventListener('click', function () {
+      var si = doc.querySelectorAll('.linea[aria-expanded="false"]').length > 0;
+      doc.querySelectorAll('.linea').forEach(function (b) { abrir(b, si); });
+      sincronizar();
+    });
+    alCambiar.push(pintar);
+    pintar(periodo);
+  })();
+
+  // ---------- barras ordenadas ----------
+  function pintarBarras(fig, filas, opciones) {
+    var cont = fig.querySelector('.barras');
+    var max = Math.max.apply(null, filas.map(function (f) { return f.v; }));
+    var existentes = {};
+    cont.querySelectorAll('.fila').forEach(function (n) { existentes[n.dataset.k] = n; });
+    filas.forEach(function (f) {
+      var n = existentes[f.n];
+      if (!n) {
+        n = el('div', 'fila'); n.dataset.k = f.n; n.tabIndex = 0;
+        n.appendChild(el('span', 'nombre', f.n));
+        var pista = el('span', 'pista'); pista.appendChild(el('span', 'barra')); n.appendChild(pista);
+        n.appendChild(el('span', 'valor num'));
+        conTip(n, function () { return n._tip; });
+      }
+      n.classList.toggle('destacada', !!f.destacada);
+      n.querySelector('.barra').style.width = (f.v / max * 100).toFixed(2) + '%';
+      var val = n.querySelector('.valor'); val.textContent = eur(f.v);
+      val.appendChild(el('span', 'dif', f.dif === undefined || f.destacada ? '' : (f.dif >= 0 ? '+' : '-') + fmt(Math.abs(f.dif))));
+      var extras = f.extras || [];
+      n.setAttribute('aria-label', [f.n, fmt(f.v) + ' euros'].concat(extras).join(', '));
+      n._tip = [eur(f.v) + (opciones.unidad || ''), [f.n].concat(extras)];
+      cont.appendChild(n);
+    });
+  }
+
+  // ---------- IRPF por comunidades ----------
   var ORD = ['', 'la más baja', 'la segunda más baja', 'la tercera más baja', 'la cuarta más baja', 'la quinta más baja'];
   (function () {
     var fig = document.getElementById('fig-irpf');
     var rango = document.getElementById('sueldo'), out = document.getElementById('sueldo-out');
     var resumen = document.getElementById('irpf-resumen'), sub = document.getElementById('irpf-sub');
-    var atajos = document.querySelectorAll('.atajos button'), foral = document.getElementById('foral');
-    var bruto = 39744.68, filasActuales = [];
+    var atajos = document.querySelectorAll('.atajos button'), foral = document.getElementById('foral'), enNomina = document.getElementById('irpf-nomina');
+    var bruto = brutoAnio, filasActuales = [];
+    function fraseDeclaracion(dec) {
+      if (Math.abs(dec) < 1) return 'la declaración saldría casi a cero';
+      return dec < 0 ? 'recuperaría ' + eur(-dec) : 'tendría que pagar ' + eur(dec) + ' más';
+    }
     function calcular() {
+      var ret = retencion(bruto);
       var filas = CCAA.map(function (c) { return { n: c.n, v: irpf(bruto, c), destacada: c.n === 'Madrid' }; });
       filas.sort(function (a, b) { return a.v - b.v; });
       var mad = filas.filter(function (f) { return f.destacada; })[0];
@@ -542,28 +774,34 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
       var media = otras.reduce(function (a, f) { return a + f.v; }, 0) / otras.length;
       var maxF = filas[filas.length - 1], pos = filas.indexOf(mad) + 1;
       filas.forEach(function (f) {
-        var d = f.v - mad.v; f.dif = d;
-        f.extra = f.destacada ? '' : (d >= 0 ? fmt(d) + '\u00a0€ más que en Madrid' : fmt(-d) + '\u00a0€ menos que en Madrid');
+        var d = f.v - mad.v; f.dif = d; f.dec = f.v - ret.importe;
+        f.extras = [];
+        if (!f.destacada) f.extras.push(d >= 0 ? eur(d) + ' más que en Madrid' : eur(-d) + ' menos que en Madrid');
+        f.extras.push(Math.abs(f.dec) < 1 ? 'La declaración sale casi a cero' : (f.dec < 0 ? 'La declaración devuelve ' + eur(-f.dec) : 'En la declaración se pagan ' + eur(f.dec)));
       });
       filasActuales = filas;
-      out.textContent = fmt(bruto) + '\u00a0€';
-      sub.textContent = 'Con ' + fmt(bruto) + '\u00a0€ brutos al año';
-      var t = 'Con ' + fmt(bruto) + '\u00a0€ brutos al año, el caso tipo paga en Madrid ' + fmt(mad.v) + '\u00a0€ de IRPF. Es ' + ORD[pos] + ' de las quince comunidades.';
-      if (pos > 1) t += ' La más baja es ' + filas[0].n + ', con ' + fmt(filas[0].v) + '\u00a0€.';
-      t += ' La media de las otras catorce es de ' + fmt(media) + '\u00a0€, ' + fmt(Math.abs(media - mad.v)) + '\u00a0€ ' + (media >= mad.v ? 'más' : 'menos') + ' al año. La más alta es ' + maxF.n + ', con ' + fmt(maxF.v) + '\u00a0€, ' + fmt(maxF.v - mad.v) + '\u00a0€ más.';
+      out.textContent = eur(bruto);
+      sub.textContent = 'Con ' + eur(bruto) + ' brutos al año';
+      var t = 'Con ' + eur(bruto) + ' brutos al año, el caso tipo paga en Madrid ' + eur(mad.v) + ' de IRPF. Es ' + ORD[pos] + ' de las quince comunidades.';
+      if (pos > 1) t += ' La más baja es ' + filas[0].n + ', con ' + eur(filas[0].v) + '.';
+      t += ' La media de las otras catorce es de ' + eur(media) + ', ' + eur(Math.abs(media - mad.v)) + ' ' + (media >= mad.v ? 'más' : 'menos') + ' al año. La más alta es ' + maxF.n + ', con ' + eur(maxF.v) + ', ' + eur(maxF.v - mad.v) + ' más.';
       resumen.textContent = t;
+      enNomina.textContent = 'En la nómina esa diferencia no se nota. La retención se calcula igual en las quince comunidades y con ese sueldo sería de ' + eur(ret.importe) + ' al año, el ' + fmt(ret.tipo, 2) + NB + '% del bruto. La diferencia llega con la declaración. En Madrid este caso tipo ' + fraseDeclaracion(mad.dec) + ', y en ' + maxF.n + ' ' + fraseDeclaracion(maxF.dec) + '.';
       var pv = irpfPaisVasco(bruto), difPv = pv - mad.v;
-      foral.textContent = 'El País Vasco y Navarra tienen un régimen fiscal propio, el foral, y por eso no aparecen en el gráfico. Con ese mismo sueldo, el caso tipo pagaría en el País Vasco ' + fmt(pv) + ' € de IRPF, ' + fmt(Math.abs(difPv)) + ' € ' + (difPv < 0 ? 'menos' : 'más') + ' que en Madrid.';
+      foral.textContent = 'El País Vasco y Navarra tienen un régimen fiscal propio, el foral, y por eso no aparecen en el gráfico. Con ese mismo sueldo, el caso tipo pagaría en el País Vasco ' + eur(pv) + ' de IRPF, ' + eur(Math.abs(difPv)) + ' ' + (difPv < 0 ? 'menos' : 'más') + ' que en Madrid.';
       pintarBarras(fig, filas, { unidad: ' al año' });
       atajos.forEach(function (b) { b.setAttribute('aria-pressed', String(Math.abs(parseFloat(b.dataset.v) - bruto) < 1)); });
       refrescar();
     }
     var refrescar = vistaTabla(fig, function () {
       var mad = filasActuales.filter(function (f) { return f.destacada; })[0];
-      return tabla(['Comunidad', 'IRPF al año', 'Frente a Madrid'], filasActuales.map(function (f) {
+      var caja = el('div');
+      caja.appendChild(tabla(['Comunidad', 'IRPF al año', 'Frente a Madrid', 'Declaración'], filasActuales.map(function (f) {
         var d = f.v - mad.v;
-        return { destacada: f.destacada, celdas: [f.n, fmt(f.v) + '\u00a0€', f.destacada ? '' : (d >= 0 ? '+' : '-') + fmt(Math.abs(d)) + '\u00a0€'] };
-      }));
+        return { destacada: f.destacada, celdas: [f.n, eur(f.v), f.destacada ? '' : (d >= 0 ? '+' : '-') + eur(Math.abs(d)), (f.dec >= 0 ? '+' : '-') + eur(Math.abs(f.dec))] };
+      })));
+      caja.appendChild(el('p', 'nota', 'La columna Declaración es lo que este caso tipo pagaría de más (+) o recuperaría (-) al hacer la declaración, después de las retenciones de la nómina.'));
+      return caja;
     });
     rango.addEventListener('input', function () { bruto = parseFloat(rango.value); calcular(); });
     atajos.forEach(function (b) {
@@ -587,15 +825,34 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
     var filas = DATOS.map(function (d) {
       var dif = d[1] - mad;
       return { n: d[0], v: d[1], dif: dif, destacada: d[0] === 'Madrid',
-        extra: d[0] === 'Madrid' ? '' : (dif >= 0 ? fmt(dif) + '\u00a0€ más al mes que en Madrid' : fmt(-dif) + '\u00a0€ menos al mes que en Madrid') };
+        extras: d[0] === 'Madrid' ? [] : [dif >= 0 ? eur(dif) + ' más al mes que en Madrid' : eur(-dif) + ' menos al mes que en Madrid'] };
     });
     pintarBarras(fig, filas, { unidad: ' al mes' });
     vistaTabla(fig, function () {
       return tabla(['Territorio', 'Bruto al mes', 'Frente a Madrid'], filas.map(function (f) {
         var d = f.v - mad;
-        return { destacada: f.destacada, celdas: [f.n, fmt(f.v, 2) + '\u00a0€', f.destacada ? '' : (d >= 0 ? '+' : '-') + fmt(Math.abs(d), 2) + '\u00a0€'] };
+        return { destacada: f.destacada, celdas: [f.n, eur(f.v, 2), f.destacada ? '' : (d >= 0 ? '+' : '-') + eur(Math.abs(d), 2)] };
       }));
     });
+  })();
+
+  // ---------- índice: marca la sección que se está leyendo ----------
+  (function () {
+    if (!('IntersectionObserver' in window)) return;
+    var caja = document.querySelector('.indice-in'), enlaces = [].slice.call(caja.querySelectorAll('a')), porId = {};
+    enlaces.forEach(function (a) { porId[a.getAttribute('href').slice(1)] = a; });
+    var io = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var a = porId[e.target.id]; if (!a) return;
+        enlaces.forEach(function (x) { x.removeAttribute('aria-current'); });
+        a.setAttribute('aria-current', 'location');
+        var izq = a.offsetLeft - 16, der = a.offsetLeft + a.offsetWidth + 48;
+        if (izq < caja.scrollLeft) caja.scrollLeft = izq;
+        else if (der > caja.scrollLeft + caja.clientWidth) caja.scrollLeft = der - caja.clientWidth;
+      });
+    }, { rootMargin: '-15% 0px -75% 0px' });
+    document.querySelectorAll('main section[id]').forEach(function (s) { io.observe(s); });
   })();
 })();
 </script>
