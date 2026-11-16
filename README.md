@@ -60,7 +60,7 @@ Este curso, la parte lectiva es de 19 periodos para todo el profesorado, sea tut
 
 Los periodos complementarios incluyen 3 guardias, 3 de tutoría, 2 de preparación de prácticas, la reunión de departamento y el seguimiento del proyecto intermodular. En la práctica, buena parte de ellos solo tienen tarea si surge algo.
 
-En la enseñanza privada, el convenio de la concertada permite hasta 25 horas de clase a la semana, y el de la privada sin concierto toma como referencia 27.
+En los cinco centros privados en los que trabajé antes de entrar en la pública, la jornada completa eran 27 clases de 55 minutos, ocho más que ahora. Es la referencia del convenio colectivo nacional de la enseñanza privada sin concierto, que habla de 27 horas lectivas a la semana. El de la concertada permite hasta 25.
 
 ## El IRPF cambia según la comunidad
 
