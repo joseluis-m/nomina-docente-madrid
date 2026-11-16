@@ -4,11 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mi nómina de profesor, euro a euro</title>
-<meta name="description" content="La nómina de un profesor de Secundaria interino en Madrid, concepto a concepto, con lo que cuesta el puesto y lo que se paga en impuestos y cotizaciones.">
+<meta name="description" content="La nómina de un profesor de Secundaria interino en Madrid, concepto a concepto, con lo que cuesta el puesto, lo que se paga en impuestos y cotizaciones y las horas de trabajo.">
+<meta name="color-scheme" content="light dark">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="es_ES">
 <meta property="og:title" content="Mi nómina de profesor, euro a euro">
-<meta property="og:description" content="Lo que cobra un profesor de Secundaria interino en Madrid, lo que cuesta su puesto y a dónde va cada euro.">
+<meta property="og:description" content="Lo que cobra un profesor de Secundaria interino en Madrid, lo que cuesta su puesto, a dónde va cada euro y cuántas horas trabaja.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#edf1f0">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f1314">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231c5cab'/%3E%3Ctext x='16' y='23.5' font-size='21' font-family='Arial,sans-serif' font-weight='700' text-anchor='middle' fill='%23fff'%3E%E2%82%AC%3C/text%3E%3C/svg%3E">
@@ -33,6 +34,9 @@
   --tip-ink: #fcfcfb;
   --on-bg: #1c5cab;
   --on-ink: #ffffff;
+  --gris-1: #8f8e85;
+  --gris-2: #c3c2b7;
+  --raya: #a3a298;
   --chev: .7rem;
 }
 @media (prefers-color-scheme: dark) {
@@ -56,10 +60,13 @@
     --tip-ink: #16212a;
     --on-bg: #86b6ef;
     --on-ink: #0f1314;
+    --gris-1: #8a8983;
+    --gris-2: #52514e;
+    --raya: #77766f;
   }
 }
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 2.75rem; }
 body {
   margin: 0;
   background: var(--page);
@@ -69,15 +76,27 @@ body {
   line-height: 1.55;
 }
 main { max-width: 54rem; margin: 0 auto; padding: 0 1rem 5rem; }
+main:focus { outline: none; }
+.saltar { position: fixed; left: 1rem; top: -5rem; z-index: 20; padding: .55rem .9rem; border-radius: 0 0 6px 6px; background: var(--on-bg); color: var(--on-ink); font-weight: 600; text-decoration: none; }
+.saltar:focus { top: 0; }
+.vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 header { padding: 2.6rem 0 0; }
+h1, h2, h3 { text-wrap: balance; }
+p, li { text-wrap: pretty; }
+section > h3 { font-size: 1.2rem; line-height: 1.25; margin: 2.2rem 0 .6rem; }
+section > .tabla { max-width: 42rem; margin: .6rem 0 1.2rem; }
+.ancla { margin-left: .45rem; font-weight: 400; color: var(--muted); text-decoration: none; }
+@media (hover: hover) { .ancla { opacity: 0; } h2:hover .ancla { opacity: 1; } }
+@media (hover: none) { .ancla { display: none; } }
+caption { text-align: left; }
 h1 { font-size: clamp(2rem, 6vw, 3.1rem); line-height: 1.08; letter-spacing: -0.02em; font-weight: 700; margin: 0 0 1.1rem; max-width: 22ch; }
 h2 { font-size: 1.55rem; line-height: 1.2; letter-spacing: -0.01em; margin: 0 0 .7rem; }
 h3 { font-size: 1rem; margin: 0; }
 p { margin: 0 0 1rem; max-width: 68ch; }
 .entrada { font-size: 1.2rem; color: var(--ink-2); margin-bottom: 0; }
 a { color: var(--accent-ink); text-underline-offset: 2px; }
-section { padding: 3.25rem 0 0; scroll-margin-top: .25rem; }
-header + noscript + section { padding-top: 2.2rem; }
+section { margin-top: 3.25rem; scroll-margin-top: .9rem; }
+header + noscript + section { margin-top: 2.2rem; }
 .nota { font-size: .9rem; color: var(--ink-2); }
 .num { font-variant-numeric: tabular-nums; white-space: nowrap; }
 button { font: inherit; color: inherit; }
@@ -169,7 +188,12 @@ tr.destacada td { font-weight: 700; }
 .segmento { border: 0; padding: 0; border-radius: 4px; min-width: 0; cursor: default; }
 .segmento.s1 { background: var(--s1); } .segmento.s2 { background: var(--s2); }
 .segmento.s3 { background: var(--s3); } .segmento.s4 { background: var(--s4); }
-.segmento:hover, .segmento:focus-visible { filter: brightness(1.08); }
+.segmento.h1 { background: var(--accent); } .segmento.h2 { background: var(--gris-1); }
+.segmento.h3 { background: var(--gris-2); }
+.segmento.h4, .sw.h4 { background: repeating-linear-gradient(135deg, var(--raya) 0 2px, transparent 2px 6px); box-shadow: inset 0 0 0 1px var(--raya); }
+.segmento:hover { filter: brightness(1.08); }
+.sw.s1 { background: var(--s1); } .sw.s2 { background: var(--s2); } .sw.s3 { background: var(--s3); } .sw.s4 { background: var(--s4); }
+.sw.h1 { background: var(--accent); } .sw.h2 { background: var(--gris-1); } .sw.h3 { background: var(--gris-2); }
 .pcts { display: flex; gap: 2px; margin-top: 5px; }
 .pcts span { min-width: 0; display: flex; justify-content: center; font-size: .86rem; line-height: 1.2; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .recibo { margin-top: 1.3rem; font-size: .98rem; }
@@ -178,14 +202,15 @@ tr.destacada td { font-weight: 700; }
 .recibo td:first-child { padding-left: 1.25rem; text-indent: -1.25rem; }
 .recibo tr.sub td { font-weight: 600; }
 .recibo tr.sub td:first-child, .recibo tr.total td:first-child { text-indent: 0; }
-.recibo tr.total td { font-weight: 700; font-size: 1.08rem; border-top: 2px solid var(--ink); border-bottom: 0; padding-top: .65rem; }
+tr.total td { font-weight: 700; border-top: 2px solid var(--ink); border-bottom: 0; padding-top: .65rem; }
+.recibo tr.total td { font-size: 1.08rem; }
 .recibo td.parte { color: var(--ink-2); width: 4.6rem; }
 .recibo tr.total td.parte { color: var(--ink); }
 
 /* Barras ordenadas */
 .barras { display: grid; row-gap: 2px; }
-.fila { display: grid; grid-template-columns: 11.5rem 1fr 8.6rem; align-items: center; column-gap: .7rem; padding: 3px 0; border-radius: 3px; }
-.fila:hover, .fila:focus-visible { background: color-mix(in srgb, var(--band) 60%, transparent); }
+.fila { display: grid; grid-template-columns: 11.5rem 1fr 8.6rem; align-items: center; column-gap: .7rem; padding: 4px 0; border-radius: 3px; }
+.fila:hover { background: color-mix(in srgb, var(--band) 60%, transparent); }
 .fila .nombre { font-size: .93rem; color: var(--ink-2); overflow-wrap: anywhere; line-height: 1.2; }
 .fila .pista { height: 14px; }
 .fila .barra { display: block; height: 100%; background: var(--rest); border-radius: 0 4px 4px 0; min-width: 2px; }
@@ -219,8 +244,24 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
   .fila .barra { transition: width .25s ease; }
   .chev { transition: transform .15s ease; }
 }
+/* En pantallas táctiles, objetivos de al menos 44 px */
+@media (pointer: coarse) {
+  .periodo button, .atajos button, .ver-tabla { min-height: 2.75rem; }
+  .periodo button { padding-left: 1.15rem; padding-right: 1.15rem; }
+  .ver-tabla { display: inline-flex; align-items: center; }
+  .indice a { padding-top: .8rem; padding-bottom: .7rem; }
+}
+/* Más contraste si el sistema lo pide */
+@media (prefers-contrast: more) {
+  :root { --line: var(--muted); --ink-2: var(--ink); }
+}
+/* Modo de colores forzados: los gráficos conservan sus colores */
+@media (forced-colors: active) {
+  .segmento, .fila .barra, .sw { forced-color-adjust: none; }
+  .periodo button[aria-pressed="true"], .atajos button[aria-pressed="true"] { outline: 2px solid; outline-offset: -2px; }
+}
 @media print {
-  .indice, .periodo, .ver-tabla, .controles, .atajos, .chev { display: none; }
+  .indice, .saltar, .ancla, .periodo, .ver-tabla, .controles, .atajos, .chev { display: none; }
   body { background: #fff; }
   .detalle[hidden] { display: block; }
 }
@@ -228,10 +269,13 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
 </head>
 <body>
 
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+
 <nav class="indice" aria-label="Secciones de la página">
   <div class="indice-in">
     <a href="#reparto">Cada euro</a>
     <a href="#nomina">Nómina</a>
+    <a href="#horas">Horas</a>
     <a href="#irpf">IRPF por comunidad</a>
     <a href="#bruto">Sueldo por comunidad</a>
     <a href="#limites">Lo que no dicen</a>
@@ -240,11 +284,11 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
   </div>
 </nav>
 
-<main>
+<main id="contenido" tabindex="-1">
 
 <header>
   <h1>Mi nómina de profesor, euro a euro</h1>
-  <p class="entrada">Soy profesor de Secundaria interino en un instituto público de la Comunidad de Madrid y doy clase en Formación Profesional. Mi sueldo se paga con dinero público, así que aquí está entero, con cada concepto explicado.</p>
+  <p class="entrada">Soy profesor de Secundaria interino en un instituto público de la Comunidad de Madrid y doy clase en Formación Profesional. Mi sueldo se paga con dinero público, así que aquí está entero, con cada concepto explicado y con las horas que trabajo.</p>
 </header>
 
 <noscript><p>Esta página necesita JavaScript para mostrar las cifras y los gráficos.</p></noscript>
@@ -267,6 +311,7 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
     </div>
     <div class="reparto-barra" id="reparto-barra"></div>
     <table class="recibo" id="recibo">
+      <caption class="vh">Reparto del coste de mi puesto</caption>
       <thead><tr><th scope="col">Concepto</th><th scope="col" class="num">Importe</th><th scope="col" class="num">Parte</th></tr></thead>
       <tbody></tbody>
     </table>
@@ -278,7 +323,7 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
 
   <p id="reparto-frase" aria-live="polite"></p>
   <p>Con esas cotizaciones se pagan las pensiones, el desempleo y las bajas de hoy, y a cambio genero el derecho a las mías. Y como soy empleado público, todo el coste se paga con dinero público, que sale sobre todo de los impuestos, también de los míos.</p>
-  <p class="nota">Datos de mis nóminas de septiembre y octubre de 2026, que son idénticas. No hay datos personales ni mi retención de IRPF. Cifras contrastadas con la normativa vigente el 14 de noviembre de 2026.</p>
+  <p class="nota">Datos de mis nóminas de septiembre y octubre de 2026, que son idénticas. No hay datos personales ni mi retención de IRPF. Cifras contrastadas con la normativa vigente el 16 de noviembre de 2026.</p>
 </section>
 
 <section id="nomina" aria-labelledby="t-nomina">
@@ -297,6 +342,89 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
   <p class="nota" id="nomina-nota"></p>
 </section>
 
+<section id="horas" aria-labelledby="t-horas">
+  <h2 id="t-horas">Las horas que trabajo</h2>
+  <p>El sueldo se entiende mejor con el horario al lado. Este es el mío en el curso 2026-2027, tal como figura en Raíces, el sistema con el que la Comunidad de Madrid gestiona los centros.</p>
+
+  <figure class="figura" id="fig-semana">
+    <div class="figura-cab">
+      <div>
+        <h3>Mi semana de trabajo</h3>
+        <p class="cifra"><span class="num">37&nbsp;h 30&nbsp;min</span> <small>a la semana</small></p>
+        <p class="sub">La jornada que fija la Comunidad de Madrid para el profesorado de Secundaria y FP, repartida según mi horario</p>
+      </div>
+    </div>
+    <div class="reparto-barra" id="semana-barra"></div>
+    <table class="recibo">
+      <caption class="vh">Reparto de mi jornada semanal</caption>
+      <thead><tr><th scope="col">Parte de la jornada</th><th scope="col" class="num">Tiempo</th><th scope="col" class="num">Parte</th></tr></thead>
+      <tbody>
+        <tr><td><i class="sw h1"></i>Clases, 19 periodos de 55 minutos</td><td class="num">17&nbsp;h 25&nbsp;min</td><td class="num parte">46,4&nbsp;%</td></tr>
+        <tr><td><i class="sw h2"></i>Otras tareas en el horario fijo, 11 periodos</td><td class="num">10&nbsp;h 05&nbsp;min</td><td class="num parte">26,9&nbsp;%</td></tr>
+        <tr><td><i class="sw h3"></i>Claustros y evaluaciones, sin horario fijo</td><td class="num">2&nbsp;h 30&nbsp;min</td><td class="num parte">6,7&nbsp;%</td></tr>
+        <tr class="sub"><td>En el centro</td><td class="num">30&nbsp;h</td><td class="num parte">80&nbsp;%</td></tr>
+        <tr><td><i class="sw h4"></i>Preparación y corrección, fuera del centro</td><td class="num">7&nbsp;h 30&nbsp;min</td><td class="num parte">20&nbsp;%</td></tr>
+        <tr class="total"><td>Jornada semanal</td><td class="num">37&nbsp;h 30&nbsp;min</td><td class="num parte">100&nbsp;%</td></tr>
+      </tbody>
+    </table>
+  </figure>
+
+  <p>Este curso estoy en el turno de tarde. Los lunes y martes entro a las 15:10, los miércoles y jueves a las 14:15 y los viernes a las 17:00, y todos los días salgo a las 21:00, con un recreo de 20 minutos cada tarde. De las 37&nbsp;h 30&nbsp;min de la jornada, 30&nbsp;h son de permanencia obligada en el centro. Las otras 7&nbsp;h 30&nbsp;min no tienen horario y son para preparar clases, corregir y el resto de tareas docentes.</p>
+
+  <h3>Las clases</h3>
+  <p>Este curso, la parte lectiva del profesorado de Secundaria y FP en la Comunidad de Madrid es de 19 periodos a la semana, sean tutores o no. Hasta el curso 2024-2025 eran 20. Yo soy tutor de 1.º de ASIR, y mis 19 periodos son clases con alumnos de tres grupos.</p>
+  <div class="tabla">
+    <table>
+      <caption class="vh">Mis clases semanales por módulo</caption>
+      <thead><tr><th scope="col">Módulo</th><th scope="col">Grupo</th><th scope="col" class="num">Clases a la semana</th></tr></thead>
+      <tbody>
+        <tr><td>Planificación y Administración de Redes</td><td>1.º ASIR</td><td class="num">6</td></tr>
+        <tr><td>Servicios en Red</td><td>2.º SMR</td><td class="num">7</td></tr>
+        <tr><td>Servicios de Red e Internet</td><td>2.º ASIR</td><td class="num">5</td></tr>
+        <tr><td>Digitalización Aplicada a los Sectores Productivos</td><td>2.º SMR</td><td class="num">1</td></tr>
+        <tr class="total"><td>Total</td><td></td><td class="num">19</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="nota">ASIR es el ciclo de grado superior de Administración de Sistemas Informáticos en Red, y SMR el de grado medio de Sistemas Microinformáticos y Redes.</p>
+  <p>Trece de esas clases son de segundo curso. En el tercer trimestre, ese alumnado hará la formación en empresa y esas horas se quedarán sin alumnos en el aula. Las instrucciones de la Comunidad fijan a qué se dedican entonces, por orden de prioridad, empezando por clases para el alumnado de primero que no cumple los requisitos para ir a la empresa. Cómo quedará mi horario lo decidirá el centro cuando llegue el momento.</p>
+
+  <h3>El resto del horario fijo</h3>
+  <p>Mi horario fijo tiene 30 periodos, como el de todo el profesorado. Además de las 19 clases, incluye 11 periodos complementarios, en el centro pero sin clase.</p>
+  <div class="tabla">
+    <table>
+      <caption class="vh">Mis periodos complementarios semanales</caption>
+      <thead><tr><th scope="col">Tarea</th><th scope="col" class="num">Periodos a la semana</th></tr></thead>
+      <tbody>
+        <tr><td>Guardias, para cubrir a compañeros que faltan</td><td class="num">3</td></tr>
+        <tr><td>Tutoría, con atención al alumnado y a las familias y reunión de tutores</td><td class="num">3</td></tr>
+        <tr><td>Preparación de prácticas de laboratorio y talleres</td><td class="num">2</td></tr>
+        <tr><td>Reunión de departamento</td><td class="num">1</td></tr>
+        <tr><td>Seguimiento del proyecto intermodular</td><td class="num">1</td></tr>
+        <tr><td>Otras tareas que encargue el equipo directivo según las necesidades del centro</td><td class="num">1</td></tr>
+        <tr class="total"><td>Total</td><td class="num">11</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>En la práctica, solo la reunión de departamento tiene una tarea segura, y únicamente cuando se convoca. Las guardias se hacen si falta algún compañero, y la atención al alumnado y a las familias, cuando alguien la pide. El periodo que reserva el equipo directivo solo se usa si encarga alguna tarea. La preparación de prácticas depende de la semana, y el proyecto intermodular apenas da trabajo por ahora. Cuando no surge nada, ese tiempo me queda libre para lo que necesite.</p>
+  <p>Las 2&nbsp;h 30&nbsp;min que faltan hasta las 30 horas de permanencia no tienen horario fijo. Se reservan para claustros, sesiones de evaluación y otras reuniones, y se cuentan por trimestre.</p>
+
+  <h3>Comparado con la enseñanza privada</h3>
+  <p>En la enseñanza privada, los convenios estatales contemplan más horas de clase. El de la concertada permite hasta 25 a la semana, y el de la privada sin concierto toma como referencia 27.</p>
+
+  <figure class="figura" id="fig-clases">
+    <h3>Horas de clase a la semana</h3>
+    <p class="sub">Mi horario frente a lo que fijan los convenios estatales de la enseñanza privada</p>
+    <div class="grafico"><div class="barras"></div></div>
+    <div class="tabla" hidden></div>
+    <div class="pie-figura">
+      <p class="nota">En azul, mi horario. La cifra de la concertada es un máximo y la de la privada sin concierto, una referencia. Cada centro concreta luego su horario.</p>
+      <button class="ver-tabla" type="button" aria-pressed="false">Ver como tabla</button>
+    </div>
+  </figure>
+  <p>En la pública de Madrid está acordado bajar a 18 periodos lectivos, en el curso 2027-2028 para los tutores y en el 2028-2029 para el resto.</p>
+</section>
+
 <section id="irpf" aria-labelledby="t-irpf">
   <h2 id="t-irpf">El IRPF cambia según la comunidad</h2>
   <p>El IRPF tiene una parte estatal, igual en toda España, y otra que fija cada comunidad autónoma. Mueve el sueldo y mira cuánto pagaría ese mismo caso tipo en cada una de las quince comunidades de régimen común.</p>
@@ -312,7 +440,8 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
     <button type="button" data-v="45000">45.000&nbsp;€</button>
     <button type="button" data-v="55000">55.000&nbsp;€</button>
   </div>
-  <p class="resumen" id="irpf-resumen" aria-live="polite"></p>
+  <p class="resumen" id="irpf-resumen"></p>
+  <p class="vh" id="irpf-anuncio" aria-live="polite"></p>
 
   <figure class="figura" id="fig-irpf">
     <h3>IRPF anual de una persona soltera y sin hijos</h3>
@@ -357,6 +486,7 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
     <li>El coste de la vida no está aquí. La vivienda, por ejemplo, cuesta muy distinto en Madrid que en otras comunidades.</li>
     <li>Menos impuestos autonómicos son también menos ingresos para la comunidad. Si compensa o no es una cuestión de opinión, y cada uno tendrá la suya.</li>
     <li>Con los años se cobran trienios, de 53,39&nbsp;€ al mes cada uno, y sexenios. En esta nómina no hay ninguno.</li>
+    <li>Las 7&nbsp;h 30&nbsp;min semanales fuera del centro son las que fija la norma para preparar clases, corregir y otras tareas. Lo que cada docente dedica de verdad cambia mucho de una persona a otra y de una época del curso a otra.</li>
   </ul>
 </section>
 
@@ -371,6 +501,7 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
     <li><strong>País Vasco.</strong> Tarifa y minoración de cuota de 2026 según la <a href="https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01877">Diputación Foral de Bizkaia</a>, y bonificación del trabajo según la <a href="https://www.bbva.es/content/dam/public-web/bbvaes/documents/productos/banca-privada/Nota-Novedades-Fiscales-Bizkaia-mayo-2025.pdf">nota de BBVA sobre la reforma fiscal de 2025</a>.</li>
     <li><strong>Sueldo por comunidades.</strong> <a href="https://ugt-sp.es/wp-content/uploads/boletin-retribuciones-docentes-2025-web.pdf">Retribuciones docentes en la enseñanza pública 2025</a>, de UGT.</li>
     <li><strong>Rebajas en tramitación.</strong> <a href="https://www.xunta.gal/documents/35297/43087/161026+REFERENCIA.pdf?version=1.0">Referencia del Consello de la Xunta</a> del 16 de octubre de 2026, <a href="https://www.juntadeandalucia.es/presidencia/portavoz/economiayempleo/220050/JuntadeAndalucia/ConsejodeGobierno">nota de la Junta de Andalucía</a> del 30 de octubre, y las informaciones de <a href="https://www.atlanticohoy.com/economia/canarias-proyecta-nuevas-rebajas-impuestos-pese-advertencia-airef-sobre-sus-cuentas_1569743_102.html">Atlántico Hoy</a> sobre Canarias, de <a href="https://www.vozpopuli.com/espana/madrid/ayuso-cumple-su-promesa-y-aprueba-una-nueva-rebaja-fiscal-bajara-medio-punto-el-irpf-a-los-madrilenos-en-2027.html">Vozpópuli</a> sobre Madrid y del <a href="https://guiafiscal.es/actualidad/rebajas-irpf-2027-comunidades/">seguimiento de guiafiscal.es</a>.</li>
+    <li><strong>Horario.</strong> Mi horario de este curso en Raíces. La jornada de 37&nbsp;h 30&nbsp;min y las 30&nbsp;h de permanencia en el centro están en el <a href="https://www.bocm.es/boletin/CM_Orden_BOCM/2025/05/08/BOCM-20250508-3.PDF">Acuerdo de 23 de abril de 2025</a> (BOCM del 8 de mayo), que también fija la bajada a 18 periodos. Los 19 periodos lectivos, los 30 del horario fijo, su duración de 55 minutos, las tareas complementarias y el uso de las horas que deja libres la formación en empresa están en las <a href="https://www.comunidad.madrid/docs/2026-07/instrucciones-inicio-de-curso-2026-2027.pdf?VersionId=_c5Q9Tfeyrrw4858fl2O5svnHcAVLidV">instrucciones de inicio del curso 2026-2027</a> (apartados 6.1.3, 7.6 y 7.7). Las horas de clase de la enseñanza privada salen del <a href="https://www.boe.es/boe/dias/2021/09/27/pdfs/BOE-A-2021-15665.pdf">VII Convenio de la enseñanza concertada</a> (artículo 27) y del <a href="https://www.boe.es/boe/dias/2024/07/26/pdfs/BOE-A-2024-15501.pdf">XII Convenio de la enseñanza privada sin concierto</a> (artículo 28).</li>
   </ul>
   <p class="nota">La retención del caso tipo sigue el algoritmo de la Agencia Tributaria. Al sueldo bruto del año se le restan las cotizaciones del trabajador y 2.000&nbsp;€ de gastos, se aplica la escala de retenciones, que va del 19&nbsp;% al 47&nbsp;%, y se descuenta el mínimo personal de 5.550&nbsp;€. El resultado se divide entre el sueldo y se trunca a dos decimales, lo que da el 19,27&nbsp;%. Esa escala es la misma en las quince comunidades de régimen común, así que la de cada comunidad solo se nota en la declaración. La única excepción es la isla de La Palma, cuyos residentes tienen desde septiembre de 2026 una rebaja estatal en la retención.</p>
   <p class="nota">El IRPF del año se calcula restando al sueldo bruto las cotizaciones del trabajador (6,5&nbsp;%) y 2.000&nbsp;€ de gastos, aplicando la escala estatal y la autonómica y descontando el mínimo personal. En las trece comunidades que no han cambiado su escala durante 2026, el resultado coincide al céntimo con el informe de los economistas para 30.000 y 45.000&nbsp;€ y con la comparativa de visorfiscal para 30.000&nbsp;€.</p>
@@ -380,7 +511,7 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
 
 <section id="porque" aria-labelledby="t-porque">
   <h2 id="t-porque">Por qué publico esto</h2>
-  <p>Trabajo en el sector público y me parece razonable que cualquiera pueda ver cuánto cuesta mi puesto y a dónde va ese dinero. Cuando se habla de sueldos casi siempre se discute el bruto o el neto, y pocas veces el coste completo o los impuestos que hay por el camino.</p>
+  <p>Trabajo en el sector público y me parece razonable que cualquiera pueda ver cuánto cuesta mi puesto, a dónde va ese dinero y cuántas horas trabajo. Cuando se habla de sueldos casi siempre se discute el bruto o el neto, y pocas veces el coste completo o los impuestos que hay por el camino.</p>
   <p>No pretendo convencer a nadie. Creo que con los datos delante cada uno puede sacar sus propias conclusiones. La mía es que es un trabajo bien pagado y que estoy en él por vocación.</p>
 </section>
 
@@ -427,10 +558,50 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
   }
   function hideTip() { tip.hidden = true; }
   function conTip(nodo, datos) {
-    nodo.addEventListener('pointermove', function (ev) { var d = datos(); showTip(nodo, d[0], d[1], ev); });
-    nodo.addEventListener('pointerleave', hideTip);
+    function mostrar(ev) { var d = datos(); showTip(nodo, d[0], d[1], ev); }
+    nodo.addEventListener('pointermove', mostrar);
+    nodo.addEventListener('pointerdown', mostrar);
+    // Con el dedo, la etiqueta se queda hasta tocar en otro sitio o desplazar la página
+    nodo.addEventListener('pointerleave', function (ev) { if (ev.pointerType !== 'touch') hideTip(); });
     nodo.addEventListener('focus', function () { var d = datos(); showTip(nodo, d[0], d[1]); });
     nodo.addEventListener('blur', hideTip);
+  }
+  document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape') hideTip(); });
+  document.addEventListener('pointerdown', function (ev) { if (!ev.target.closest('.segmento, .fila')) hideTip(); });
+  window.addEventListener('scroll', hideTip, { passive: true });
+
+  // Duraciones en minutos, escritas como "17 h 25 min" y, para lectores de pantalla, "17 horas y 25 minutos"
+  function hm(min) {
+    var h = Math.floor(min / 60), m = Math.round(min - h * 60);
+    return (h ? h + NB + 'h' : '') + (h && m ? ' ' : '') + (m ? (h && m < 10 ? '0' : '') + m + NB + 'min' : '');
+  }
+  function hmLargo(min) {
+    var h = Math.floor(min / 60), m = Math.round(min - h * 60);
+    return (h ? h + (h === 1 ? ' hora' : ' horas') : '') + (h && m ? ' y ' : '') + (m ? m + ' minutos' : '');
+  }
+
+  // Barra apilada por grupos. Es decorativa para los lectores de pantalla,
+  // porque la tabla que la acompaña tiene los mismos datos.
+  // grupos: [{ texto, partes: [[nombre, valor, clase de color]] }]
+  function barraApilada(cont, grupos, total, o) {
+    cont.textContent = '';
+    cont.setAttribute('aria-hidden', 'true');
+    grupos.forEach(function (gr) {
+      var v = gr.partes.reduce(function (a, x) { return a + x[1]; }, 0);
+      var g = el('div', 'grupo'); g.style.flex = v + ' 1 0';
+      var t = el('div', 'grupo-txt', gr.texto + ' '); t.appendChild(el('b', null, o.valor(v))); g.appendChild(t);
+      g.appendChild(el('div', 'llave'));
+      var barras = el('div', 'segmentada'), pcts = el('div', 'pcts');
+      gr.partes.forEach(function (x) {
+        var pct = x[1] / total * 100;
+        var s = el('span', 'segmento ' + x[2]); s.style.flex = x[1] + ' 1 0';
+        conTip(s, function () { return [o.tip(x[1]), [x[0], fmt(pct, 1) + NB + '% ' + o.deTotal]]; });
+        barras.appendChild(s);
+        var e = el('span', null, fmt(pct) + NB + '%'); e.style.flex = x[1] + ' 1 0'; pcts.appendChild(e);
+      });
+      g.appendChild(barras); g.appendChild(pcts);
+      cont.appendChild(g);
+    });
   }
   function vistaTabla(figura, construir) {
     var boton = figura.querySelector('button.ver-tabla');
@@ -572,28 +743,9 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
     var barra = document.getElementById('reparto-barra'), cuerpo = document.querySelector('#recibo tbody');
     var sub = document.getElementById('reparto-sub'), nota = document.getElementById('reparto-nota'), frase = document.getElementById('reparto-frase');
     var total = document.getElementById('reparto-total'), unidad = document.getElementById('reparto-unidad');
-    // partes: [nombre, importe, clase de color]
-    function grupo(texto, total, partes, alAnio) {
-      var v = r2(partes.reduce(function (a, x) { return a + x[1]; }, 0));
-      var g = el('div', 'grupo'); g.style.flex = v + ' 1 0';
-      var t = el('div', 'grupo-txt', texto + ' '); t.appendChild(el('b', null, eur(v))); g.appendChild(t);
-      var ll = el('div', 'llave'); ll.setAttribute('aria-hidden', 'true'); g.appendChild(ll);
-      var barras = el('div', 'segmentada'), pcts = el('div', 'pcts'); pcts.setAttribute('aria-hidden', 'true');
-      partes.forEach(function (x) {
-        var pct = x[1] / total * 100;
-        var s = el('button', 'segmento ' + x[2]); s.type = 'button';
-        s.style.flex = x[1] + ' 1 0';
-        s.setAttribute('aria-label', x[0] + ', ' + fmt(x[1], 2) + ' euros, ' + fmt(pct) + ' por ciento');
-        conTip(s, function () { return [eur(x[1], 2) + (alAnio ? ' al año' : ' al mes'), [x[0], fmt(pct, 1) + NB + '% del coste']]; });
-        barras.appendChild(s);
-        var e = el('span', null, fmt(pct) + NB + '%'); e.style.flex = x[1] + ' 1 0'; pcts.appendChild(e);
-      });
-      g.appendChild(barras); g.appendChild(pcts);
-      return g;
-    }
     function fila(clase, muestra, nombre, etiqueta, v, total) {
       var tr = el('tr', clase), td = el('td');
-      if (muestra) { var sw = el('i', 'sw'); sw.style.background = 'var(--' + muestra + ')'; td.appendChild(sw); }
+      if (muestra) td.appendChild(el('i', 'sw ' + muestra));
       td.appendChild(document.createTextNode(nombre));
       if (etiqueta) td.appendChild(el('small', 'etq', etiqueta));
       tr.appendChild(td);
@@ -604,15 +756,18 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
     function pintar(p) {
       var d = P[p], anio = p === 'anio', t = d.coste, resto = r2(d.irpf + d.ss + d.ssAdmin);
       var nIrpf = anio ? 'IRPF del año en Madrid' : 'IRPF, retención en la nómina';
-      barra.textContent = '';
-      barra.setAttribute('role', 'group');
-      barra.setAttribute('aria-label', 'Reparto del coste de mi puesto en ' + (anio ? 'un año' : 'un mes'));
-      barra.appendChild(grupo('A mi cuenta', t, [['Neto que llegaría a mi cuenta', d.neto, 's1']], anio));
-      barra.appendChild(grupo('IRPF y cotizaciones', t, [
-        [nIrpf + ', caso tipo', d.irpf, 's2'],
-        ['Seguridad Social, mi parte', d.ss, 's3'],
-        ['Seguridad Social, parte de la Administración', d.ssAdmin, 's4']
-      ], anio));
+      barraApilada(barra, [
+        { texto: 'A mi cuenta', partes: [['Neto que llegaría a mi cuenta', d.neto, 's1']] },
+        { texto: 'IRPF y cotizaciones', partes: [
+          [nIrpf + ', caso tipo', d.irpf, 's2'],
+          ['Seguridad Social, mi parte', d.ss, 's3'],
+          ['Seguridad Social, parte de la Administración', d.ssAdmin, 's4']
+        ] }
+      ], t, {
+        valor: function (v) { return eur(v); },
+        tip: function (v) { return eur(v, 2) + (anio ? ' al año' : ' al mes'); },
+        deTotal: 'del coste'
+      });
       cuerpo.textContent = '';
       cuerpo.appendChild(fila(null, 's1', 'Neto que llegaría a mi cuenta', '', d.neto, t));
       cuerpo.appendChild(fila(null, 's2', nIrpf, 'caso tipo', d.irpf, t));
@@ -670,7 +825,7 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
     }
     function resultado(clase, muestra, texto, v) {
       var r = el('div', 'resultado' + (clase ? ' ' + clase : '')), t = el('span');
-      if (muestra) { var sw = el('i', 'sw'); sw.style.background = 'var(--' + muestra + ')'; t.appendChild(sw); }
+      if (muestra) t.appendChild(el('i', 'sw ' + muestra));
       t.appendChild(document.createTextNode(texto));
       r.appendChild(t); r.appendChild(el('span', 'num', eur(v, 2)));
       return r;
@@ -730,6 +885,8 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
   // ---------- barras ordenadas ----------
   function pintarBarras(fig, filas, opciones) {
     var cont = fig.querySelector('.barras');
+    var formato = opciones.formato || function (v) { return eur(v); };
+    var leer = opciones.leer || function (v) { return fmt(v) + ' euros'; };
     var max = Math.max.apply(null, filas.map(function (f) { return f.v; }));
     var existentes = {};
     cont.querySelectorAll('.fila').forEach(function (n) { existentes[n.dataset.k] = n; });
@@ -744,11 +901,11 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
       }
       n.classList.toggle('destacada', !!f.destacada);
       n.querySelector('.barra').style.width = (f.v / max * 100).toFixed(2) + '%';
-      var val = n.querySelector('.valor'); val.textContent = eur(f.v);
-      val.appendChild(el('span', 'dif', f.dif === undefined || f.destacada ? '' : (f.dif >= 0 ? '+' : '-') + fmt(Math.abs(f.dif))));
+      var val = n.querySelector('.valor'); val.textContent = formato(f.v);
+      if (f.dif !== undefined) val.appendChild(el('span', 'dif', f.destacada ? '' : (f.dif >= 0 ? '+' : '-') + fmt(Math.abs(f.dif))));
       var extras = f.extras || [];
-      n.setAttribute('aria-label', [f.n, fmt(f.v) + ' euros'].concat(extras).join(', '));
-      n._tip = [eur(f.v) + (opciones.unidad || ''), [f.n].concat(extras)];
+      n.setAttribute('aria-label', [f.n, leer(f.v)].concat(extras).join(', '));
+      n._tip = [formato(f.v) + (opciones.unidad || ''), [f.n].concat(extras)];
       cont.appendChild(n);
     });
   }
@@ -781,6 +938,7 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
       });
       filasActuales = filas;
       out.textContent = eur(bruto);
+      rango.setAttribute('aria-valuetext', eur(bruto) + ' brutos al año');
       sub.textContent = 'Con ' + eur(bruto) + ' brutos al año';
       var t = 'Con ' + eur(bruto) + ' brutos al año, el caso tipo paga en Madrid ' + eur(mad.v) + ' de IRPF. Es ' + ORD[pos] + ' de las quince comunidades.';
       if (pos > 1) t += ' La más baja es ' + filas[0].n + ', con ' + eur(filas[0].v) + '.';
@@ -803,9 +961,13 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
       caja.appendChild(el('p', 'nota', 'La columna Declaración es lo que este caso tipo pagaría de más (+) o recuperaría (-) al hacer la declaración, después de las retenciones de la nómina.'));
       return caja;
     });
+    // El resumen se lee en voz alta al soltar el control, no en cada paso
+    var anuncio = document.getElementById('irpf-anuncio');
+    function anunciar() { anuncio.textContent = resumen.textContent; }
     rango.addEventListener('input', function () { bruto = parseFloat(rango.value); calcular(); });
+    rango.addEventListener('change', anunciar);
     atajos.forEach(function (b) {
-      b.addEventListener('click', function () { bruto = parseFloat(b.dataset.v); rango.value = String(Math.round(bruto / 250) * 250); calcular(); });
+      b.addEventListener('click', function () { bruto = parseFloat(b.dataset.v); rango.value = String(Math.round(bruto / 250) * 250); calcular(); anunciar(); });
     });
     calcular();
   })();
@@ -835,6 +997,48 @@ footer { padding-top: 3rem; font-size: .9rem; color: var(--ink-2); }
       }));
     });
   })();
+
+  // ---------- horas de trabajo ----------
+  (function () {
+    var PERIODO = 55;
+    var clases = 19 * PERIODO, fijo = 11 * PERIODO, noFijo = 150, fuera = 450;
+    barraApilada(document.getElementById('semana-barra'), [
+      { texto: 'En el centro', partes: [
+        ['Clases', clases, 'h1'],
+        ['Otras tareas en el horario fijo', fijo, 'h2'],
+        ['Claustros y evaluaciones, sin horario fijo', noFijo, 'h3']
+      ] },
+      { texto: 'Fuera del centro', partes: [['Preparación y corrección', fuera, 'h4']] }
+    ], clases + fijo + noFijo + fuera, {
+      valor: hm,
+      tip: function (v) { return hm(v) + ' a la semana'; },
+      deTotal: 'de la jornada'
+    });
+
+    var fig = document.getElementById('fig-clases');
+    var filas = [
+      { n: 'Pública de Madrid, mi horario', v: clases, destacada: true, extras: ['19 periodos de 55 minutos'] },
+      { n: 'Concertada, máximo del convenio', v: 25 * 60 },
+      { n: 'Privada sin concierto, referencia del convenio', v: 27 * 60 }
+    ];
+    filas.forEach(function (f) { if (!f.destacada) f.extras = [hm(f.v - clases) + ' más que en mi horario']; });
+    pintarBarras(fig, filas, { formato: hm, leer: hmLargo, unidad: ' a la semana' });
+    vistaTabla(fig, function () {
+      return tabla(['Centro', 'Horas de clase a la semana', 'Diferencia con mi horario'], filas.map(function (f) {
+        return { destacada: f.destacada, celdas: [f.n, hm(f.v), f.destacada ? '' : '+' + hm(f.v - clases)] };
+      }));
+    });
+  })();
+
+  // ---------- enlace a cada sección, al pasar el ratón por el título ----------
+  document.querySelectorAll('main section[id] > h2').forEach(function (h) {
+    var a = el('a', 'ancla', '#');
+    a.href = '#' + h.parentNode.id;
+    a.title = 'Enlace a esta sección';
+    a.tabIndex = -1;
+    a.setAttribute('aria-hidden', 'true');
+    h.appendChild(a);
+  });
 
   // ---------- índice: marca la sección que se está leyendo ----------
   (function () {
